@@ -1,0 +1,41 @@
+@import '@/assets/styles/variables.scss';
+.variations {
+	display: flex;
+	align-items: flex-start;
+	flex-direction: column;
+	gap: 25px;
+
+	> div {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		> p {
+			color: $grey;
+			font-size: 18px;
+			font-weight: 500;
+		}
+
+		.sizes {
+			display: flex;
+			align-items: center;
+			gap: 20px;
+
+			> button {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border: 2px solid $black;
+				border-radius: 20px;
+				cursor: pointer;
+				font-size: 18px;
+				height: 40px;
+				width: 40px;
+				&.active {
+					background: $black;
+					color: $white;
+					transition: all 0.4s ease;
+				}
+			}
+		}
+	}
+}

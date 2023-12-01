@@ -1,0 +1,13 @@
+@import '@/assets/styles/variables.scss';
+.catalog {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	.products {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		column-gap: 60px;
+		row-gap: 60px;
+	}
+}

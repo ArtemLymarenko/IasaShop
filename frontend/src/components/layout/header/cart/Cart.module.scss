@@ -1,0 +1,55 @@
+@import '@/assets/styles/variables.scss';
+
+.wrapper-cart {
+	.heading {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		.badge {
+			padding: 8px;
+			height: 20px;
+			width: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 9999px;
+			background-color: $red;
+			font-weight: 600;
+		}
+
+		.text {
+			font-weight: 700;
+
+			&:hover {
+				opacity: 0.8;
+				transition: 0.4s ease;
+			}
+		}
+	}
+
+	.cart {
+		background-color: $white;
+		padding: 20px;
+		position: absolute;
+		right: 0;
+		top: calc(100% + 1.3rem);
+		filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));
+	}
+}
+
+.footer {
+	> div:first-child {
+		color: $black;
+		font-size: 18px;
+		font-weight: 600;
+	}
+	> div:last-child {
+		font-weight: 700;
+		font-size: 24px;
+	}
+}
+
+.alertMessage {
+	font-size: 16px;
+	font-weight: 700;
+}

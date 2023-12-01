@@ -1,0 +1,44 @@
+@import '@/assets/styles/variables.scss';
+
+.menu {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 5px;
+	height: 70px;
+
+	> nav {
+		> ul {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			> li {
+				> a {
+					font-size: 16px;
+					font-weight: 600;
+					color: $white;
+					text-transform: uppercase;
+					letter-spacing: $letter-spacing;
+					position: relative;
+
+					&::after {
+						content: '';
+						width: 0;
+						background-color: $white;
+						left: 0;
+						bottom: -12px;
+						height: 2px;
+						position: absolute;
+						transition-property: all;
+						transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+						transition-duration: 300ms;
+					}
+
+					&:hover::after {
+						width: 100%;
+					}
+				}
+			}
+		}
+	}
+}

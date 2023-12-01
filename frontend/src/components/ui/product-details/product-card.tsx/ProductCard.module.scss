@@ -1,0 +1,105 @@
+@import '@/assets/styles/variables.scss';
+.card {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+
+	.productImage {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		gap: 20px;
+		max-width: 600px;
+		background: $grey-light;
+		border-radius: 20px;
+
+		.slider {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 20px;
+			.carousel {
+				overflow: hidden;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				.slides {
+					white-space: nowrap;
+					transition: transform 0.4s;
+					.slide {
+						display: inline-flex;
+						align-items: center;
+						justify-content: center;
+						padding: 60px;
+						> img {
+							border-radius: 20px;
+						}
+					}
+				}
+
+				.indicators {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					gap: 25px;
+					.indicator-buttons {
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						border: 2px solid $black;
+						border-radius: 50%;
+						width: 20px;
+						height: 20px;
+
+						&:hover {
+							opacity: 0.6;
+						}
+						.indicator-symbol-active {
+							width: 55%;
+							height: 55%;
+							border-radius: 50%;
+							background-color: $black;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.price {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 60px;
+		background: $black;
+		color: $white;
+		width: 100%;
+		border-radius: 0 0 20px 20px;
+		> p {
+			font-size: 24px;
+			font-weight: 700;
+		}
+	}
+}
+
+.information {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	max-width: 800px;
+	.headerInfo {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		> h1 {
+			font-size: 36px;
+			font-weight: 700;
+		}
+		> p {
+			font-size: 24px;
+			font-weight: 500;
+		}
+	}
+}

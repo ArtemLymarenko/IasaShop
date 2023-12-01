@@ -1,0 +1,53 @@
+@import '@/assets/styles/variables.scss';
+.item {
+	display: flex;
+	align-items: center;
+	padding: 10px 0;
+	gap: 20px;
+	border-bottom: 1px solid $grey-light;
+	.imgContent {
+		display: flex;
+		justify-content: center;
+		width: 40%;
+		> img {
+			border-radius: 10px;
+			height: 100px;
+		}
+	}
+
+	> div {
+		width: 60%;
+		.name {
+			font-size: 20px;
+			width: 144px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			font-weight: 700;
+		}
+
+		.itemSize {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+			font-size: 16px;
+			font-weight: 600;
+
+			> span {
+				display: inline-block;
+				text-align: center;
+				padding: 1px 5px;
+				border-radius: 5px;
+				background: $black;
+				color: $white;
+			}
+		}
+
+		.price {
+			margin-top: 4px;
+			font-size: 14px;
+			font-weight: 500;
+			color: $grey;
+		}
+	}
+}
