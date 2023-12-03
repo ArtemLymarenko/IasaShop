@@ -27,3 +27,9 @@ model Product{
   updatedAt DateTime @updatedAt @map("updated_at")
   product_name String @unique
 }
+
+model Orders{
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  order_name String @unique
+}
