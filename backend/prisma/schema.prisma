@@ -26,7 +26,24 @@ model Product{
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+
   product_name String @unique
+  description String
+  price Decimal
+  images String[]
+
+}
+model Category{
+   id Int @id @default(autoincrement())
+   createdAt DateTime @default(now()) @map("created_at")
+   updatedAt DateTime @updatedAt @map("updated_at")
+
+   category_name String @unique
+}
+model ProductSize {
+  id Int @id @default(autoincrement())
+  size_name String @unique @db.VarChar(10)
+  is_available Boolean
 }
 
 model Orders{
