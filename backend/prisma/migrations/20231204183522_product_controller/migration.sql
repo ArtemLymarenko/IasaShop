@@ -15,22 +15,6 @@ ALTER TABLE "Category" ADD COLUMN     "slug" TEXT NOT NULL;
 ALTER TABLE "Product" ADD COLUMN     "category_id" INTEGER,
 ADD COLUMN     "slug" TEXT NOT NULL;
 
--- DropTable
-DROP TABLE "Orders";
-
--- CreateTable
-CREATE TABLE "Order" (
-    "id" SERIAL NOT NULL,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
-    "order_name" TEXT NOT NULL,
-
-    CONSTRAINT "Order_pkey" PRIMARY KEY ("id")
-);
-
--- CreateIndex
-CREATE UNIQUE INDEX "Order_order_name_key" ON "Order"("order_name");
-
 -- CreateIndex
 CREATE UNIQUE INDEX "Category_slug_key" ON "Category"("slug");
 

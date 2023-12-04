@@ -41,6 +41,7 @@ model Product{
   category      Category?  @relation(fields: [category_id], references: [id])
   category_id    Int?       @map("category_id")
 }
+
 model Category{
    id Int @id @default(autoincrement())
    createdAt DateTime @default(now()) @map("created_at")
@@ -50,6 +51,7 @@ model Category{
    slug String @unique
    products Product[]
 }
+
 model ProductSize {
   id Int @id @default(autoincrement())
   size_name String @unique @db.VarChar(10)
