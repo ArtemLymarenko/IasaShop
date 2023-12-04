@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common'
+import { faker } from '@faker-js/faker'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService } from 'src/prisma.service'
 import { CategoryDto } from './category.dto'
 import { returnCategoryObject } from './return-category.object'
@@ -17,7 +18,22 @@ export class CategoryService {
 		// Ensure that there's a closing curly brace here
 
 		if (!category) {
-			throw new Error('Category not found')
+			throw new NotFoundException('Category not found')
+		}
+
+		return category
+	}
+	async bySlug(slug: string) {
+		const category = await this.prisma.category.findUnique({
+			where: {
+				slug
+			},
+			select: returnCategoryObject
+		})
+		// Ensure that there's a closing curly brace here
+
+		if (!category) {
+			throw new NotFoundException('Category not found')
 		}
 
 		return category
@@ -29,7 +45,8 @@ export class CategoryService {
 				id
 			},
 			data: {
-				category_name: dto.category_name
+				category_name: dto.category_name,
+				slug: faker.helpers.slugify(dto.category_name).toLowerCase()
 			}
 		})
 	}
@@ -44,7 +61,8 @@ export class CategoryService {
 	async create() {
 		return this.prisma.category.create({
 			data: {
-				category_name: ''
+				category_name: '',
+				slug: ''
 			}
 		})
 	}

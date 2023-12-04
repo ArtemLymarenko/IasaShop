@@ -28,10 +28,13 @@ model Product{
   updatedAt DateTime @updatedAt @map("updated_at")
 
   product_name String @unique
+  slug String @unique
   description String
   price Decimal
   images String[]
-
+  
+  category      Category?  @relation(fields: [category_id], references: [id])
+  category_id    Int?       @map("category_id")
 }
 model Category{
    id Int @id @default(autoincrement())
@@ -39,6 +42,8 @@ model Category{
    updatedAt DateTime @updatedAt @map("updated_at")
 
    category_name String @unique
+   slug String @unique
+   products Product[]
 }
 model ProductSize {
   id Int @id @default(autoincrement())
@@ -46,7 +51,7 @@ model ProductSize {
   is_available Boolean
 }
 
-model Orders{
+model Order{
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
