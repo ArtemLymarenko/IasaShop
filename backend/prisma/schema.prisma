@@ -17,9 +17,14 @@ model User{
 
   email String @unique
   password String?
+  isAdmin Boolean @default(false) @map("is_admin")
 
-  name String @unique
+  userName String @unique @map("user_name") 
+  firstName String  @map("first_name") 
+  lastName String  @map("last_name") 
   phone String @default("")
+
+  orders Order[]
 }
 
 model Product{
@@ -29,9 +34,12 @@ model Product{
   product_name String @unique
 }
 
-model Orders{
+model Order{
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
   order_name String @unique
+
+  user User? @relation(fields: [userId], references: [id])
+  userId Int? @map("user_id")
 }
