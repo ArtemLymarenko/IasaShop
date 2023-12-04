@@ -1,6 +1,6 @@
-import { Controller, Get,Put, UsePipes,Body, ValidationPipe, HttpCode, Post, Delete, Param } from '@nestjs/common';
-import { CategoryService } from './category.service';
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CategoryDto } from './category.dto';
+import { CategoryService } from './category.service';
 // import {Auth} from 'src/auth'  need decorator/ auth
 
 @Controller('categories')
@@ -11,7 +11,14 @@ export class CategoryController {
   async getAll(){
     return this.categoryService.getAll();
   }
-  
+
+
+  @Get('by-slug/:slug')
+  //@Auth()
+  async getBySlug(@Param('slug') slug: string) {
+    return this.categoryService.bySlug(slug);
+  }
+
   @Get(':id')
   //@Auth()
   async getById(@Param('id') id: string) {
