@@ -4,14 +4,32 @@ import CategoryPage from '@/components/screens/categories/CategoryPage'
 import NotFound from '../screens/not-found/NotFound'
 import ProductDetailsPage from '../screens/product-page/ProductDetailsPage'
 import AuthPage from '../screens/auth-page/AuthPage'
+import AuthProvider from '@/providers/auth-provider/AuthProvider'
 
 const Router = () => {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route element={<Home />} path='/'></Route>
-				<Route element={<CategoryPage />} path='/category/:id'></Route>
-				<Route element={<ProductDetailsPage />} path='/products/:id'></Route>
+				<Route
+					element={<AuthProvider role={{ isUser: true }} children={<Home />} />}
+					path='/'
+				></Route>
+				<Route
+					element={
+						<AuthProvider role={{ isUser: true }} children={<CategoryPage />} />
+					}
+					path='/category/:id'
+				></Route>
+				<Route
+					element={
+						<AuthProvider
+							role={{ isUser: true }}
+							children={<ProductDetailsPage />}
+						/>
+					}
+					path='/products/:id'
+				></Route>
+
 				<Route
 					element={<AuthPage pageTitle='Authorization' />}
 					path='/auth'

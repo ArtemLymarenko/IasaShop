@@ -14,7 +14,7 @@ export const userSlice = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: builder => {
-		builder
+		return builder
 			.addCase(authMainAction('register').pending, state => {
 				state.isLoading = true
 			})
@@ -33,7 +33,7 @@ export const userSlice = createSlice({
 				state.isLoading = false
 				state.user = payload.user
 			})
-			.addCase(authMainAction('login').fulfilled, state => {
+			.addCase(authMainAction('login').rejected, state => {
 				state.isLoading = false
 				state.user = null
 			})

@@ -11,6 +11,11 @@ export const getAccessToken = () => {
 	return accessToken || null
 }
 
+export const getRefreshToken = () => {
+	const resfreshToken = Cookies.get(EnumTokens.REFRESH_TOKEN)
+	return resfreshToken || null
+}
+
 export const saveTokensToCookies = (data: ITokens) => {
 	Cookies.set(EnumTokens.ACCESS_TOKEN, data.accessToken)
 	Cookies.set(EnumTokens.REFRESH_TOKEN, data.refreshToken)
