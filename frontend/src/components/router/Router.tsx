@@ -14,26 +14,9 @@ const Router = () => {
 					element={<AuthProvider role={{ isUser: true }} children={<Home />} />}
 					path='/'
 				></Route>
-				<Route
-					element={
-						<AuthProvider role={{ isUser: true }} children={<CategoryPage />} />
-					}
-					path='/category/:id'
-				></Route>
-				<Route
-					element={
-						<AuthProvider
-							role={{ isUser: true }}
-							children={<ProductDetailsPage />}
-						/>
-					}
-					path='/products/:id'
-				></Route>
-
-				<Route
-					element={<AuthPage pageTitle='Authorization' />}
-					path='/auth'
-				></Route>
+				<Route element={<CategoryPage />} path='/category/:id'></Route>
+				<Route element={<ProductDetailsPage />} path='/products/:id'></Route>
+				<Route element={<AuthPage />} path='/auth'></Route>
 				<Route path='*' element={<NotFound />}></Route>
 			</Routes>
 		</BrowserRouter>

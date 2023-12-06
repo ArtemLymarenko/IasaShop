@@ -22,6 +22,7 @@ export class AuthService {
 	async getToken(refreshDto: RefreshDto) {
 		const token = refreshDto.refreshToken
 		const result = await this.jwtService.verifyAsync(token)
+
 		if (!result) throw new UnauthorizedException('Invalid refresh token')
 
 		const user = await this.userService.getUserById(result.id, {

@@ -9,7 +9,7 @@ export enum ErrorJwtTypes {
 }
 
 export const instance = axios.create({
-	baseURL: import.meta.env.BASE_URL,
+	baseURL: import.meta.env.VITE_SERVER_URL,
 	headers: getContentType()
 })
 

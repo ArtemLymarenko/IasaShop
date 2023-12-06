@@ -3,14 +3,17 @@ import { ICategory } from '@/types/category.interface'
 export const categories: ICategory[] = [
 	{
 		id: 0,
-		name: 'T-Shirts'
+		name: 'T-Shirts',
+		slug: 'a'
 	},
 	{
 		id: 1,
-		name: 'Sweetshots'
+		name: 'Sweetshots',
+		slug: 'a'
 	},
 	{
 		id: 2,
-		name: 'Hoodies'
+		name: 'Hoodies',
+		slug: 'a'
 	}
 ]

@@ -18,6 +18,7 @@ export interface IInitialState {
 export interface IEmailPassword {
 	email: string
 	password: string
+	repeatPassword?: string
 }
 
 export interface IAuthResponse extends ITokens {

@@ -17,12 +17,14 @@ export const products: IProduct[] = [
 			'/images/products/1.webp',
 			'/images/products/2.webp'
 		],
+		createdAt: 'asd',
 		category: {
 			id: 0,
-			name: 'T-Shirt'
+			name: 'T-Shirt',
+			slug: 't-shirt'
 		},
-		sizes,
-		reviews: []
+		slug: 't-shirt',
+		sizes
 	},
 	{
 		id: 2,
@@ -39,12 +41,14 @@ export const products: IProduct[] = [
 			'/images/products/2.webp',
 			'/images/products/1.webp'
 		],
+		createdAt: 'asd',
 		category: {
 			id: 0,
-			name: 'T-Shirt'
+			name: 'T-Shirt',
+			slug: 't-shirt'
 		},
 		sizes,
-		reviews: []
+		slug: 't-shirt'
 	},
 	{
 		id: 3,
@@ -61,12 +65,14 @@ export const products: IProduct[] = [
 			'/images/products/1.webp',
 			'/images/products/2.webp'
 		],
+		createdAt: 'asd',
 		category: {
 			id: 1,
-			name: 'Sweetshot'
+			name: 'Sweetshot',
+			slug: 't-shirt'
 		},
-		sizes,
-		reviews: []
+		slug: 't-shirt',
+		sizes
 	},
 	{
 		id: 4,
@@ -83,11 +89,13 @@ export const products: IProduct[] = [
 			'/images/products/1.webp',
 			'/images/products/2.webp'
 		],
+		createdAt: 'asd',
 		category: {
 			id: 1,
-			name: 'Sweetshot'
+			name: 'Sweetshot',
+			slug: 't-shirt'
 		},
-		sizes,
-		reviews: []
+		slug: 't-shirt',
+		sizes
 	}
 ]

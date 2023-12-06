@@ -2,6 +2,7 @@ import { FC, InputHTMLAttributes, forwardRef, useState } from 'react'
 import styles from './Field.module.scss'
 import { IconType } from 'react-icons'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
+import cn from 'clsx'
 
 interface IField extends InputHTMLAttributes<HTMLInputElement> {
 	placeholder: string
@@ -42,6 +43,9 @@ const Field = forwardRef<HTMLInputElement, IField>(
 						type={type === 'text' ? 'text' : showPassword ? 'text' : 'password'}
 						ref={ref}
 						{...rest}
+						className={cn(styles.input, {
+							[styles.inputError]: !!error
+						})}
 					/>
 				</label>
 

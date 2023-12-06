@@ -19,11 +19,11 @@ class AuthService {
 	}
 
 	async getNewTokens() {
-		const resfreshToken = Cookies.get(EnumTokens.REFRESH_TOKEN)
+		const refreshToken = Cookies.get(EnumTokens.REFRESH_TOKEN)
 
 		const response = await axios.post<string, { data: IAuthResponse }>(
-			import.meta.env.SERVER_URL + '/auth/login/access-tokens',
-			{ resfreshToken },
+			import.meta.env.VITE_SERVER_URL + '/auth/login/access-tokens',
+			{ refreshToken },
 			{ headers: getContentType() }
 		)
 
