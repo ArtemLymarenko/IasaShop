@@ -12,20 +12,19 @@ const createProducts = async (quantity: number) => {
 	for (let i = 0; i < quantity; i++) {
 		const productName = faker.commerce.productName()
 		const categoryName = faker.commerce.department()
-
 		const product = await prisma.product.create({
 			data: {
 				product_name: productName,
-				slug: faker.helpers.slugify(productName),
+				slug: faker.helpers.slugify(productName).toLowerCase(),
 				description: faker.commerce.productDescription(),
-				price: +faker.commerce.price(100, 2000, 0),
+				price: +faker.commerce.price({ min: 100, max: 150, dec: 2 }),
 				images: Array.from({ length: getRandomNumber(2, 6) }).map(() =>
-					faker.image.imageUrl()
+				faker.image.url()
 				),
 				category: {
 					create: {
 						category_name: categoryName,
-						slug: faker.helpers.slugify(categoryName)
+						slug: faker.helpers.slugify(categoryName).toLowerCase()
 					}
 				}
 			}
@@ -39,23 +38,15 @@ const createUserAccounts = async (quantity: number) => {
 	const users: User[] = []
 
 	for (let i = 0; i < quantity; i++) {
-		const userName = faker.internet.userName()
-		const firstName = faker.person.firstName()
-		const lastName = faker.person.lastName()
-		const email = faker.internet.email()
-		const password = faker.internet.password()
-		const phone = faker.phone.number()
-		const isAdmin = false;
-
 		const user = await prisma.user.create({
 			data: {
-				userName,
-				firstName,
-				lastName,
-				email,
-				password,
-				phone,
-				isAdmin
+				userName: faker.internet.userName(),
+				firstName: faker.person.firstName(),
+				lastName: faker.person.lastName(),
+				email: faker.internet.email(),
+				password: faker.internet.password(),
+				phone: faker.phone.number(),
+				isAdmin: false
 			}
 		})
 
@@ -67,7 +58,7 @@ const createUserAccounts = async (quantity: number) => {
 
 async function main() {
 	console.log('Start seeding...')
-	await createProducts(10)
+	//await createProducts(10)
 	await createUserAccounts(5)
 }
 
