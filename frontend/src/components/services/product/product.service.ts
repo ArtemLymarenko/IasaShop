@@ -1,6 +1,6 @@
 import { instance } from '../../api/api.interceptor'
 import { IProduct } from '@/types/product.interface'
-import { IProductDto } from './productDto.interface'
+import { IProductDto } from './product.dto.interface'
 
 class ProductService {
 	async getAll() {

@@ -2,20 +2,15 @@ import { FC, InputHTMLAttributes, forwardRef, useState } from 'react'
 import styles from './Field.module.scss'
 import { IconType } from 'react-icons'
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
-import { IconButton } from '@chakra-ui/react'
 
 interface IField extends InputHTMLAttributes<HTMLInputElement> {
 	placeholder: string
-	isPassword?: boolean
 	Icon?: IconType
 	error?: string
 }
 
 const Field = forwardRef<HTMLInputElement, IField>(
-	(
-		{ placeholder, Icon, error, type = 'text', isPassword = false, ...rest },
-		ref
-	) => {
+	({ placeholder, Icon, error, type = 'text', ...rest }, ref) => {
 		const [showPassword, setShowPassword] = useState(false)
 
 		return (
@@ -25,7 +20,7 @@ const Field = forwardRef<HTMLInputElement, IField>(
 
 					<div>
 						<span>{placeholder}</span>
-						{isPassword ? (
+						{type === 'password' ? (
 							showPassword ? (
 								<ViewIcon
 									onClick={() => {
@@ -44,7 +39,7 @@ const Field = forwardRef<HTMLInputElement, IField>(
 						)}
 					</div>
 					<input
-						type={!isPassword ? 'text' : showPassword ? 'text' : 'password'}
+						type={type === 'text' ? 'text' : showPassword ? 'text' : 'password'}
 						ref={ref}
 						{...rest}
 					/>
