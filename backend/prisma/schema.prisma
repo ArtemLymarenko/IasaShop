@@ -40,6 +40,7 @@ model Product{
   
   category      Category?  @relation(fields: [categoryId], references: [id])
   categoryId    Int?       @map("category_id")
+  productInfo   ProductInfo[]
 }
 
 model Category{
@@ -52,10 +53,15 @@ model Category{
    products Product[]
 }
 
-model ProductSize {
+model ProductInfo {
   id Int @id @default(autoincrement())
-  size_name String @unique @db.VarChar(10)
-  isAvailable Boolean @map("is_available")
+  product      Product @relation(fields: [productId], references: [id])
+  productId    Int @map("product_id")
+  
+  sizeName String @unique @db.VarChar(10) @map("size_name")
+  amountStorage Int @map("amount_storage")
+
+
 }
 
 model Order{
