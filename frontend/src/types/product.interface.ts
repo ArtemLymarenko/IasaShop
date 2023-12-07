@@ -3,14 +3,13 @@ import { ISize } from './size.interface'
 
 export interface IProduct {
 	id: number
-	name: string
+	productName: string
 	slug: string
 	price: number
 	description: string
 	images: string[]
 	createdAt: string
-	category: ICategory //replace by categoryId
-	sizes: ISize[]
+	categoryId: number //replace by categoryId
 }
 
 export interface IProductDetails {

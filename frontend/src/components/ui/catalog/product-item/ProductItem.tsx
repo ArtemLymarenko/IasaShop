@@ -11,10 +11,10 @@ const ProductItem: FC<{ product: IProduct }> = ({ product }) => {
 					<span>{product.price} UAH</span>
 				</div>
 				<div className={styles.imgContent}>
-					<img src={product.images[0]} alt={product.name} />
+					<img src={product.images[0]} alt={product.productName} />
 				</div>
 			</div>
-			<button className={styles.name}>{product.name}</button>
+			<button className={styles.name}>{product.productName}</button>
 		</Link>
 	)
 }

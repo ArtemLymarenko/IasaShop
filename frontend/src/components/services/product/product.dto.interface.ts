@@ -1,5 +1,5 @@
 export interface IProductDto {
-	name: string
+	productName: string
 	price: number
 	description: string
 	images: string[]
