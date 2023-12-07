@@ -4,28 +4,35 @@ import { instance } from '../api/api.interceptor'
 class CategoryService {
 	async getAll() {
 		return instance<ICategory[]>({
-			url: '/category',
+			url: '/categories',
 			method: 'GET'
 		})
 	}
 
 	async getById(id: string) {
 		return instance<ICategory>({
-			url: `/category/${id}`,
+			url: `/categories/${id}`,
+			method: 'GET'
+		})
+	}
+
+	async getBySlug(slug: string) {
+		return instance<ICategory>({
+			url: `/categories/by-slug/${slug}`,
 			method: 'GET'
 		})
 	}
 
 	async create() {
 		return instance<ICategory>({
-			url: `/category`,
+			url: `/categories`,
 			method: 'POST'
 		})
 	}
 
 	async update(id: string, categoryName: string) {
 		return instance<ICategory>({
-			url: `/category/${id}`,
+			url: `/categories/${id}`,
 			method: 'PUT',
 			data: categoryName
 		})

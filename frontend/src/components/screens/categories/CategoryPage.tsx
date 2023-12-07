@@ -1,25 +1,26 @@
 import { FC } from 'react'
 import { useParams } from 'react-router-dom'
 import Catalog from '@/components/ui/catalog/Catalog'
-import { products } from '@/data/product.data'
-import { categories } from '@/data/categoty.data'
 import Layout from '@/components/layout/Layout'
 import NotFound from '../not-found/NotFound'
+import { useProductBySlug } from '@/hooks/useProducts'
 
 const CategoryPage: FC = () => {
-	const { id } = useParams()
-	const productsData = products.filter(
-		product => product.category.id.toString() === id
-	)
-	const category = categories.find(item => item.id.toString() === id)
+	const { slug } = useParams()
+	console.log(slug)
+	if (!slug) {
+		return <NotFound />
+	}
+	const { products } = useProductBySlug(slug)
 
-	if (!category) {
+	console.log(products)
+	if (!products) {
 		return <NotFound />
 	}
 
 	return (
-		<Layout pageTitle={category.name}>
-			<Catalog products={productsData} title={category.name} />
+		<Layout pageTitle={slug.toUpperCase()}>
+			<Catalog products={products} title={slug.toUpperCase()} />
 		</Layout>
 	)
 }

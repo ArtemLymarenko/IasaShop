@@ -17,6 +17,13 @@ class ProductService {
 		})
 	}
 
+	async getByCategorySlug(slug: string) {
+		return instance<IProduct[]>({
+			url: `/products/by-category/${slug}`,
+			method: 'GET'
+		})
+	}
+
 	async create() {
 		return instance<IProduct>({
 			url: `/products`,

@@ -7,6 +7,11 @@ import { IProductDetails } from '@/types/product.interface'
 import ProductVariations from './product-variations/ProductVariations'
 
 const ProductCard: FC<IProductDetails> = ({ product }) => {
+	product.sizes = [
+		{ id: 0, size: 'XS', isAvailible: true },
+		{ id: 1, size: 'M', isAvailible: true },
+		{ id: 2, size: 'L', isAvailible: true }
+	]
 	const [selectedSize, setSelectedSize] = useState<ISize>(product.sizes[0])
 
 	return (

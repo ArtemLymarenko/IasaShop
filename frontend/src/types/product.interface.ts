@@ -10,6 +10,7 @@ export interface IProduct {
 	images: string[]
 	createdAt: string
 	categoryId: number //replace by categoryId
+	sizes: ISize[]
 }
 
 export interface IProductDetails {

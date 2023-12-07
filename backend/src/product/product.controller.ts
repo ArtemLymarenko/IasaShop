@@ -20,24 +20,28 @@ import { Auth } from 'src/auth/decorators/auth.decorator'
 export class ProductController {
 	constructor(private readonly productService: ProductService) {}
 
+	//Needed
 	@HttpCode(200)
 	@Get()
 	async getAll(@Query() queryDto: GetAllProductDto) {
 		return this.productService.getAll(queryDto)
 	}
 
+	//?
 	@HttpCode(200)
 	@Get('similar/:id')
 	async getSimilar(@Param('id') id: string) {
 		return this.productService.getSimilar(+id)
 	}
 
+	//?
 	@HttpCode(200)
 	@Get('by-slug/:slug')
 	async getProductBySlug(@Param('slug') slug: string) {
 		return this.productService.bySlug(slug)
 	}
 
+	//Needed
 	@HttpCode(200)
 	@Get('by-category/:categorySlug')
 	getProductByCategory(@Param('categorySlug') categorySlug: string) {
@@ -46,7 +50,7 @@ export class ProductController {
 
 	@UsePipes(new ValidationPipe())
 	@HttpCode(200)
-	@Auth()
+	//@Auth()
 	@Post()
 	async createProduct() {
 		return this.productService.create()

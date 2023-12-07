@@ -5,7 +5,7 @@ import { ICategory } from '@/types/category.interface'
 const MenuItem: FC<{ item: ICategory }> = ({ item }) => {
 	return (
 		<li>
-			<Link to={`/category/${item.id}`}>{item.name}</Link>
+			<Link to={`/categories/${item.slug}`}>{item.categoryName}</Link>
 		</li>
 	)
 }
