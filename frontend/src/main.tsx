@@ -16,9 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 			<ChakraProvider>
 				<CSSReset />
 				<QueryClientProvider client={queryClient}>
-					<React.StrictMode>
-						<Router />
-					</React.StrictMode>
+					<Router />
 				</QueryClientProvider>
 			</ChakraProvider>
 		</PersistGate>

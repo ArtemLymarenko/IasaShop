@@ -20,21 +20,25 @@ import { Auth } from 'src/auth/decorators/auth.decorator'
 export class ProductController {
 	constructor(private readonly productService: ProductService) {}
 
+	@HttpCode(200)
 	@Get()
 	async getAll(@Query() queryDto: GetAllProductDto) {
 		return this.productService.getAll(queryDto)
 	}
 
+	@HttpCode(200)
 	@Get('similar/:id')
 	async getSimilar(@Param('id') id: string) {
 		return this.productService.getSimilar(+id)
 	}
 
+	@HttpCode(200)
 	@Get('by-slug/:slug')
 	async getProductBySlug(@Param('slug') slug: string) {
 		return this.productService.bySlug(slug)
 	}
 
+	@HttpCode(200)
 	@Get('by-category/:categorySlug')
 	getProductByCategory(@Param('categorySlug') categorySlug: string) {
 		return this.productService.byCategorySlug(categorySlug)

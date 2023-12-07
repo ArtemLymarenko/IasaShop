@@ -12,8 +12,6 @@ const Home: FC = () => {
 		return <NotFound />
 	}
 
-	console.log(products)
-
 	return (
 		<Layout pageTitle='Home'>
 			<Catalog products={products} title={'Home'} />
