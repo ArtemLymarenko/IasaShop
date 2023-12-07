@@ -5,28 +5,28 @@ import { IProductDto } from './product.dto.interface'
 class ProductService {
 	async getAll() {
 		return instance<IProduct[]>({
-			url: '/product',
+			url: '/products',
 			method: 'GET'
 		})
 	}
 
 	async getById(id: string) {
 		return instance<IProduct>({
-			url: `/product/${id}`,
+			url: `/products/${id}`,
 			method: 'GET'
 		})
 	}
 
 	async create() {
 		return instance<IProduct>({
-			url: `/product`,
+			url: `/products`,
 			method: 'POST'
 		})
 	}
 
 	async update(id: string, productDto: IProductDto) {
 		return instance<IProduct>({
-			url: `/product/${id}`,
+			url: `/products/${id}`,
 			method: 'PUT',
 			data: productDto
 		})
@@ -34,7 +34,7 @@ class ProductService {
 
 	async delete(id: string) {
 		return instance<IProduct>({
-			url: `/product/${id}`,
+			url: `/products/${id}`,
 			method: 'DELETE'
 		})
 	}

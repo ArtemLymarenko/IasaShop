@@ -11,7 +11,8 @@ const Router = () => {
 		<BrowserRouter>
 			<Routes>
 				<Route
-					element={<AuthProvider role={{ isUser: true }} children={<Home />} />}
+					// <AuthProvider role={{ isUser: true }} children={<Home />}
+					element={<Home />}
 					path='/'
 				></Route>
 				<Route element={<CategoryPage />} path='/category/:id'></Route>

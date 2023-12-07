@@ -32,14 +32,14 @@ model Product{
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  product_name String @unique
+  productName String @unique @map("product_name")
   slug String @unique
   description String
   price Decimal
   images String[]
   
-  category      Category?  @relation(fields: [category_id], references: [id])
-  category_id    Int?       @map("category_id")
+  category      Category?  @relation(fields: [categoryId], references: [id])
+  categoryId    Int?       @map("category_id")
 }
 
 model Category{
@@ -47,7 +47,7 @@ model Category{
    createdAt DateTime @default(now()) @map("created_at")
    updatedAt DateTime @updatedAt @map("updated_at")
 
-   category_name String @unique
+   categoryName String @unique @map("category_name")
    slug String @unique
    products Product[]
 }
@@ -55,14 +55,14 @@ model Category{
 model ProductSize {
   id Int @id @default(autoincrement())
   size_name String @unique @db.VarChar(10)
-  is_available Boolean
+  isAvailable Boolean @map("is_available")
 }
 
 model Order{
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  order_name String @unique
+  orderName String @unique  @map("order_name")
 
   user User? @relation(fields: [userId], references: [id])
   userId Int? @map("user_id")

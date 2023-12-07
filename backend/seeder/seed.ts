@@ -1,17 +1,44 @@
 import { faker } from '@faker-js/faker'
-import { PrismaClient, Product, User } from '@prisma/client'
+import { Category, PrismaClient, Product, User } from '@prisma/client'
 import * as dotenv from 'dotenv'
 import { getRandomNumber } from '../src/utils/random-number'
 
 dotenv.config()
 const prisma = new PrismaClient()
 
+const createCategories = async () => {
+	const categories: Category[] = []
+
+	const categoryArray: string[] = ['T-Shirt', 'Hoodie']
+	for (let i = 0; i < categoryArray.length; i++) {
+		const categoryName = categoryArray[i]
+		const category = await prisma.category.create({
+			data: {
+				category_name: categoryName,
+				slug: faker.helpers.slugify(categoryName).toLowerCase()
+			}
+		})
+		categories.push(category)
+	}
+	console.log(`Created ${categories.length} categories`)
+}
+
 const createProducts = async (quantity: number) => {
 	const products: Product[] = []
-
+	const allCategoryIds = await prisma.category.findMany({
+		select: {
+			id: true
+		}
+	})
+	const categoryIds = allCategoryIds.map(category => category.id)
 	for (let i = 0; i < quantity; i++) {
-		const productName = faker.commerce.productName()
-		const categoryName = faker.commerce.department()
+		const productName =
+			faker.commerce.productName() +
+			Math.floor(Math.random() * 5 + 1).toString()
+
+		const randomCategoryId =
+			categoryIds[Math.floor(Math.random() * categoryIds.length)]
+
 		const product = await prisma.product.create({
 			data: {
 				product_name: productName,
@@ -19,12 +46,11 @@ const createProducts = async (quantity: number) => {
 				description: faker.commerce.productDescription(),
 				price: +faker.commerce.price({ min: 100, max: 150, dec: 2 }),
 				images: Array.from({ length: getRandomNumber(2, 6) }).map(() =>
-				faker.image.url()
+					faker.image.url()
 				),
 				category: {
-					create: {
-						category_name: categoryName,
-						slug: faker.helpers.slugify(categoryName).toLowerCase()
+					connect: {
+						id: randomCategoryId
 					}
 				}
 			}
@@ -58,8 +84,9 @@ const createUserAccounts = async (quantity: number) => {
 
 async function main() {
 	console.log('Start seeding...')
-	//await createProducts(10)
-	await createUserAccounts(5)
+	//await createCategories()
+	await createProducts(10)
+	//await createUserAccounts(5)
 }
 
 main()

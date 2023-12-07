@@ -8,7 +8,7 @@ import {
 	productReturnObject,
 	productReturnObjectFullSet
 } from './return-product.object'
-//
+
 @Injectable()
 export class ProductService {
 	constructor(private prisma: PrismaService) {}
@@ -18,29 +18,28 @@ export class ProductService {
 		const prismaSort: Prisma.ProductOrderByWithRelationInput[] = []
 
 		if (sort === EnumProductSort.LOW_PRICE) {
-			prismaSort.push({ price: Prisma.SortOrder.asc });
-		  } else if (sort === EnumProductSort.HIGH_PRICE) {
-			prismaSort.push({ price: Prisma.SortOrder.desc });
-		  } else if (sort === EnumProductSort.OLDEST) {
-			prismaSort.push({ createdAt: Prisma.SortOrder.asc });
-		  } else {
-			prismaSort.push({ createdAt: Prisma.SortOrder.desc });
-		  }
-		  
+			prismaSort.push({ price: Prisma.SortOrder.asc })
+		} else if (sort === EnumProductSort.HIGH_PRICE) {
+			prismaSort.push({ price: Prisma.SortOrder.desc })
+		} else if (sort === EnumProductSort.OLDEST) {
+			prismaSort.push({ createdAt: Prisma.SortOrder.asc })
+		} else {
+			prismaSort.push({ createdAt: Prisma.SortOrder.desc })
+		}
 
 		const prismaSearchTermFilter: Prisma.ProductWhereInput = searchTerm
 			? {
 					OR: [
 						{
 							category: {
-								category_name: {
+								categoryName: {
 									contains: searchTerm,
 									mode: 'insensitive'
 								}
 							}
 						},
 						{
-							product_name: {
+							productName: {
 								contains: searchTerm,
 								mode: 'insensitive'
 							}
@@ -120,7 +119,7 @@ export class ProductService {
 		const products = await this.prisma.product.findMany({
 			where: {
 				category: {
-					category_name: currentProduct.category.category_name
+					categoryName: currentProduct.category.categoryName
 				},
 				NOT: {
 					id: currentProduct.id
@@ -137,7 +136,7 @@ export class ProductService {
 		const product = await this.prisma.product.create({
 			data: {
 				description: '',
-				product_name: '',
+				productName: '',
 				price: 0,
 				slug: ''
 			}
@@ -145,7 +144,7 @@ export class ProductService {
 		return product.id
 	}
 	async update(id: number, dto: ProductDto) {
-		const { description, images, price, product_name, category_id } = dto
+		const { description, images, price, productName, categoryId } = dto
 		return this.prisma.product.update({
 			where: {
 				id
@@ -154,11 +153,11 @@ export class ProductService {
 				description,
 				images,
 				price,
-				product_name,
-				slug: faker.helpers.slugify(product_name).toLowerCase(),
+				productName,
+				slug: faker.helpers.slugify(productName).toLowerCase(),
 				category: {
 					connect: {
-						id: category_id
+						id: categoryId
 					}
 				}
 			}
