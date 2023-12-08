@@ -1,34 +1,38 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, UsePipes, ValidationPipe, Put } from '@nestjs/common';
 import { ProductInfoService } from './product-info.service';
-import { CreateProductInfoDto } from './dto/create-product-info.dto';
-import { UpdateProductInfoDto } from './dto/update-product-info.dto';
+import { ProductInfoDto } from './dto/product-info.dto';
 
 @Controller('product-info')
 export class ProductInfoController {
   constructor(private readonly productInfoService: ProductInfoService) {}
 
-  @Post()
-  create(@Body() createProductInfoDto: CreateProductInfoDto) {
-    return this.productInfoService.create(createProductInfoDto);
-  }
+  @UsePipes(new ValidationPipe())
+	@HttpCode(200)
+	//@Auth()
+	@Post()
+	async createProduct(@Body() dto: ProductInfoDto) {
+		return this.productInfoService.create(dto)
+	}
 
-  @Get()
-  findAll() {
-    return this.productInfoService.findAll();
-  }
+  @UsePipes(new ValidationPipe())
+	@HttpCode(200)
+	@Put(':id')
+	//@Auth()
+	async updateProductInfo(@Param('id') id: string, @Body() dto: ProductInfoDto) {
+		return this.productInfoService.update(+id, dto)
+	}
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.productInfoService.findOne(+id);
-  }
+  @HttpCode(200)
+	@Delete(':id')
+	//@Auth()
+	async deleteProductInfo(@Param('id') id: string) {
+		return this.productInfoService.delete(+id)
+	}
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProductInfoDto: UpdateProductInfoDto) {
-    return this.productInfoService.update(+id, updateProductInfoDto);
-  }
+  @HttpCode(200)
+	@Get('by-productId/:id')
+	getProductByCategory(@Param('id') productId: number) {
+		return this.productInfoService.byProductId(+productId)
+	}
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.productInfoService.remove(+id);
-  }
 }

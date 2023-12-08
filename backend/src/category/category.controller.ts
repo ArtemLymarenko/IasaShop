@@ -14,27 +14,27 @@ export class CategoryController {
 
 
   @Get('by-slug/:slug')
-  @Auth()
+  //@Auth()
   async getBySlug(@Param('slug') slug: string) {
     return this.categoryService.bySlug(slug);
   }
 
   @Get(':id')
-  @Auth()
+  //@Auth()
   async getById(@Param('id') id: string) {
-    return this.categoryService.byID(+id);
+    return this.categoryService.byId(+id);
   }
 
 
   @HttpCode(200)
-  @Auth()
+  //@Auth()
   @Post()
   async create() {
     return this.categoryService.create();
   }
   
   @HttpCode(200)
-  @Auth()
+  //@Auth()
   @Delete(':id')
   async delete(@Param('id') categoryId: string) {
     return this.categoryService.delete(+categoryId);
@@ -42,7 +42,7 @@ export class CategoryController {
 
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
-  @Auth()
+  //@Auth()
   @Put(':id')
   async update(
     @Param('id') id: string,

@@ -63,7 +63,7 @@ export class ProductService {
 		return products
 	}
 
-	async byID(id: number) {
+	async byId(id: number) {
 		const product = await this.prisma.product.findUnique({
 			where: {
 				id
@@ -112,7 +112,7 @@ export class ProductService {
 	}
 
 	async getSimilar(id: number) {
-		const currentProduct = await this.byID(id)
+		const currentProduct = await this.byId(id)
 		if (!currentProduct)
 			throw new NotFoundException('Current product not found')
 

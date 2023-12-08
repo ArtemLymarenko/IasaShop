@@ -46,7 +46,7 @@ export class ProductController {
 
 	@UsePipes(new ValidationPipe())
 	@HttpCode(200)
-	@Auth()
+	//@Auth()
 	@Post()
 	async createProduct() {
 		return this.productService.create()
@@ -70,6 +70,6 @@ export class ProductController {
 	@Get(':id')
 	//@Auth()
 	async getProduct(@Param('id') id: string) {
-		return this.productService.byID(+id)
+		return this.productService.byId(+id)
 	}
 }
