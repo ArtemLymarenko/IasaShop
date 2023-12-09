@@ -10,7 +10,7 @@ class ProductService {
 		})
 	}
 
-	async getById(id: string) {
+	async getById(id: number) {
 		return instance<IProduct>({
 			url: `/products/${id}`,
 			method: 'GET'
@@ -31,7 +31,7 @@ class ProductService {
 		})
 	}
 
-	async update(id: string, productDto: IProductDto) {
+	async update(id: number, productDto: IProductDto) {
 		return instance<IProduct>({
 			url: `/products/${id}`,
 			method: 'PUT',
@@ -39,7 +39,7 @@ class ProductService {
 		})
 	}
 
-	async delete(id: string) {
+	async delete(id: number) {
 		return instance<IProduct>({
 			url: `/products/${id}`,
 			method: 'DELETE'

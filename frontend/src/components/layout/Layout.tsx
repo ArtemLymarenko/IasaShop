@@ -2,9 +2,9 @@ import { FC, ReactNode, useEffect } from 'react'
 import Header from './header/Header'
 import styles from './Layout.module.scss'
 
-interface LayoutProps {
-	children: ReactNode
+export interface LayoutProps {
 	pageTitle: string
+	children: ReactNode
 }
 
 const Layout: FC<LayoutProps> = ({ children, pageTitle }) => {

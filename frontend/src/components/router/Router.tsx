@@ -7,9 +7,10 @@ import AuthPage from '../screens/auth-page/AuthPage'
 import AuthProvider from '@/providers/auth-provider/AuthProvider'
 import AdminPanel from '../screens/admin-panel/AdminPanel'
 import { getAdminUrl } from '@/config/url.config'
-import AdminPanelProducts from '../screens/admin-panel/products/AdminPanelProducts'
-import AdminPanelCategories from '../screens/admin-panel/categories/AdminPanelCategories'
-import AdminPanelOrders from '../screens/admin-panel/orders/AdminPanelOrders'
+import AdminPanelProducts from '../screens/admin-panel/products/AdminProducts'
+import AdminPanelCategories from '../screens/admin-panel/categories/AdminCategories'
+import AdminPanelOrders from '../screens/admin-panel/orders/AdminOrders'
+import Dashboard from '../screens/admin-panel/dashboard/Dashboard'
 
 const Router = () => {
 	return (
@@ -39,7 +40,12 @@ const Router = () => {
 				/>
 				<Route
 					element={
-						<AuthProvider role={{ isAdmin: true }} children={<AdminPanel />} />
+						<AuthProvider
+							role={{ isAdmin: true }}
+							children={
+								<AdminPanel children={<Dashboard />} pageTitle='Dashboard' />
+							}
+						/>
 					}
 					path={getAdminUrl()}
 				/>
@@ -47,7 +53,12 @@ const Router = () => {
 					element={
 						<AuthProvider
 							role={{ isAdmin: true }}
-							children={<AdminPanelProducts />}
+							children={
+								<AdminPanel
+									children={<AdminPanelProducts />}
+									pageTitle='Products'
+								/>
+							}
 						/>
 					}
 					path={getAdminUrl('/products')}
@@ -56,7 +67,12 @@ const Router = () => {
 					element={
 						<AuthProvider
 							role={{ isAdmin: true }}
-							children={<AdminPanelCategories />}
+							children={
+								<AdminPanel
+									children={<AdminPanelCategories />}
+									pageTitle='Categories'
+								/>
+							}
 						/>
 					}
 					path={getAdminUrl('/categories')}
@@ -65,7 +81,12 @@ const Router = () => {
 					element={
 						<AuthProvider
 							role={{ isAdmin: true }}
-							children={<AdminPanelOrders />}
+							children={
+								<AdminPanel
+									children={<AdminPanelOrders />}
+									pageTitle='Orders'
+								/>
+							}
 						/>
 					}
 					path={getAdminUrl('/orders')}
