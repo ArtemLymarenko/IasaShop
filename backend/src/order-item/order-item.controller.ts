@@ -1,34 +1,45 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
+
 import { OrderItemService } from './order-item.service';
-import { CreateOrderItemDto } from './dto/create-order-item.dto';
-import { UpdateOrderItemDto } from './dto/update-order-item.dto';
+import { GetAllOrderItemDto } from './dto/order-item.dto';
 
 @Controller('order-item')
 export class OrderItemController {
   constructor(private readonly orderItemService: OrderItemService) {}
 
-  @Post()
-  create(@Body() createOrderItemDto: CreateOrderItemDto) {
-    return this.orderItemService.create(createOrderItemDto);
-  }
+  
+  @UsePipes(new ValidationPipe())
+	@HttpCode(200)
+	//@Auth()
+	@Post()
+	async createProduct(@Body() dto: GetAllOrderItemDto ) {
+		return this.orderItemService.create()
+	}
 
-  @Get()
-  findAll() {
-    return this.orderItemService.findAll();
-  }
+	@UsePipes(new ValidationPipe())
+	@HttpCode(200)
+	@Put(':id')
+	//@Auth()
+	async updateProduct(@Param('id') id: string, @Body() dto: GetAllOrderItemDto) {
+		return this.orderItemService.update(+id, dto)
+	}
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.orderItemService.findOne(+id);
-  }
+	@HttpCode(200)
+	@Delete(':id')
+	//@Auth()
+	async deleteProduct(@Param('id') id: string) {
+		return this.orderItemService.delete(+id)
+	}
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOrderItemDto: UpdateOrderItemDto) {
-    return this.orderItemService.update(+id, updateOrderItemDto);
-  }
+	@Get(':id')
+	//@Auth()
+	async getProduct(@Param('id') id: string) {
+		return this.orderItemService.byId(+id)
+	}
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.orderItemService.remove(+id);
-  }
+  @HttpCode(200)
+	@Get()
+	async getAll() {
+		return this.orderItemService.getAll()
+	}
 }

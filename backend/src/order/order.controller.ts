@@ -13,8 +13,8 @@ export class OrderController {
 	@HttpCode(200)
 	//@Auth()
 	@Post()
-	async createProduct(@Body() dto: GetAllOrderDto ) {
-		return this.orderService.create(dto)
+	async createProduct() {
+		return this.orderService.create()
 	}
 
 	@UsePipes(new ValidationPipe())

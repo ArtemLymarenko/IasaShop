@@ -1,26 +1,62 @@
 import { Injectable } from '@nestjs/common';
-import { CreateOrderItemDto } from './dto/create-order-item.dto';
-import { UpdateOrderItemDto } from './dto/update-order-item.dto';
+import { error } from 'console';
+import { PrismaService } from 'src/prisma.service';
+import { GetAllOrderItemDto } from './dto/order-item.dto';
+import { returnOrderItem } from './retrun-order-item.object';
+
 
 @Injectable()
 export class OrderItemService {
-  create(createOrderItemDto: CreateOrderItemDto) {
-    return 'This action adds a new orderItem';
-  }
+  constructor(private prisma: PrismaService) {}
 
-  findAll() {
-    return `This action returns all orderItem`;
-  }
+  async create() {
+	return this.prisma.orderItem.create({
+	  data: {
+      orderId: null,
+      productInfoId: 1,
+      quantity: 1,
+      price: 1,
+		}
+	})
+}
+  async update(id: number, dto: GetAllOrderItemDto) {
+		const { orderId,productInfoId,quantity,price } = dto
+		return this.prisma.orderItem.update({
+			where: {
+				id
+			},
+			data: {
+        orderId,
+        productInfoId,
+        quantity,
+        price,
+			}
+		})
+	}
 
-  findOne(id: number) {
-    return `This action returns a #${id} orderItem`;
-  }
+	async delete(id: number) {
+		return this.prisma.orderItem.delete({ where: { id } })
+	}
 
-  update(id: number, updateOrderItemDto: UpdateOrderItemDto) {
-    return `This action updates a #${id} orderItem`;
-  }
+	async  byId(id: number) {
+		const orderItem = await this.prisma.orderItem.findUnique({
+			where: {
+				id
+			},
+			select: returnOrderItem
+		})
+		// Ensure that there's a closing curly brace here
 
-  remove(id: number) {
-    return `This action removes a #${id} orderItem`;
-  }
+		if (!orderItem) {
+			throw new error('orderItem not found')
+		}
+
+		return orderItem
+	}
+
+	async getAll() {
+		return this.prisma.orderItem.findMany({
+			select: returnOrderItem
+		})
+	}
 }

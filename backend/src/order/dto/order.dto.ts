@@ -26,10 +26,7 @@ export class GetAllOrderDto{
 
     @IsString()
     shipAdress:string
-
-    @IsString()
-    shipType:string
-
+    
     @IsString()
     orderDate:string
     

@@ -107,7 +107,7 @@ const createProductInfo = async (quantity: number) => {
 	  // Создаем записи productInfo для каждого продукта
 	  for (const { id } of productIds) {
 		const productInfoData = Array.from({ length: quantity }).map(() => ({
-		  sizeName: getRandomSize() + getRandomNumber(20, 150).toString(),
+		  sizeName: getRandomSize() + getRandomNumber(0, 10).toString(),
 		  productId: id,
 		  amountStorage: getRandomNumber(20, 150),
 		}));
@@ -129,7 +129,7 @@ async function main() {
 	console.log('Start seeding...')
 	//await createCategories()
 	//await createProducts(10)
-	//await createUserAccounts(5)
+	//await createUserAccounts(3)
 	await createProductInfo(3)
 }
 

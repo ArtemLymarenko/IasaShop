@@ -1,4 +1,5 @@
 import { Prisma } from '@prisma/client'
+import { returnOrderItem } from 'src/order-item/retrun-order-item.object'
 
 export const returnOrderInfo: Prisma.OrderSelect = {
   id: true,
@@ -16,7 +17,7 @@ export const returnOrderInfo: Prisma.OrderSelect = {
 export const returnOrderInfoFullSet: Prisma.OrderSelect = {
     ...returnOrderInfo,
 	items: {
-		select: returnOrderInfo
+		select: returnOrderItem
 	},
   
   }

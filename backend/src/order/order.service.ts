@@ -8,21 +8,20 @@ import { error } from 'console';
 export class OrderService {
   constructor(private prisma: PrismaService) {}
 
-  async create(dto: GetAllOrderDto) {
-	const { status,shipAdress,shipCity,shipCountry,shipPostalCode,shipRegion,shipType } = dto
+  async create() {
 	return this.prisma.order.create({
 		data: {
-		status,
-		shipAdress,
-		shipCity,
-		shipCountry,
-		shipPostalCode,
-		shipRegion,
+		status: "",
+		shipAdress: "",
+		shipCity: "",
+		shipCountry:"",
+		shipPostalCode: "",
+		shipRegion: "",
 		}
 	})
 }
   async update(id: number, dto: GetAllOrderDto) {
-		const { status,shipAdress,shipCity,shipCountry,shipPostalCode,shipRegion,shipType } = dto
+		const { status,shipAdress,shipCity,shipCountry,shipPostalCode,shipRegion } = dto
 		return this.prisma.order.update({
 			where: {
 				id
