@@ -8,8 +8,8 @@ import { returnCategoryObject } from './return-category.object'
 export class CategoryService {
 	constructor(private prisma: PrismaService) {}
 
-	//?
-	async byID(id: number) {
+
+	async byId(id: number) {
 		const category = await this.prisma.category.findUnique({
 			where: {
 				id
