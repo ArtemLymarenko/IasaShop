@@ -11,7 +11,6 @@ export const returnOrderInfo: Prisma.OrderSelect = {
   shipPostalCode: true,
   shipRegion: true,
   userId: true
-
 }
 
 export const returnOrderInfoFullSet: Prisma.OrderSelect = {

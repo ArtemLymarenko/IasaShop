@@ -10,26 +10,26 @@ export enum EnumOrderStatus{
 
 export class GetAllOrderDto{
     @IsString()
-    status:string 
+    status:string;
 
     @IsString()  // mb enum ?
-    shipCountry:string
+    shipCountry:string;
 
     @IsString()
-    shipCity:string
+    shipCity:string;
 
     @IsString()
-    shipRegion:string
+    shipRegion:string;
 
     @IsString()
-    shipPostalCode:string
+    shipPostalCode:string;
 
     @IsString()
-    shipAdress:string
+    shipAdress:string;
+
+    @IsString()
+    orderDate:string;
     
-    @IsString()
-    orderDate:string
-    
-    items: OrderItem[]
-    user: User
+    items: OrderItem[];
+    user: User;
 }

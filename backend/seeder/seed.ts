@@ -129,8 +129,8 @@ async function main() {
 	console.log('Start seeding...')
 	//await createCategories()
 	//await createProducts(10)
-	//await createUserAccounts(3)
-	await createProductInfo(3)
+	await createUserAccounts(3)
+	//await createProductInfo(3)
 }
 
 main()

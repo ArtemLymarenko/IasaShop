@@ -8,34 +8,39 @@ import { error } from 'console';
 export class OrderService {
   constructor(private prisma: PrismaService) {}
 
-  async create() {
+  async create(dto: GetAllOrderDto) {
+	const { status, shipAdress, shipCity, shipCountry, shipPostalCode, shipRegion } = dto;
+  
 	return this.prisma.order.create({
-		data: {
-		status: "",
-		shipAdress: "",
-		shipCity: "",
-		shipCountry:"",
-		shipPostalCode: "",
-		shipRegion: "",
-		}
-	})
-}
+	  data: {
+		status,
+		shipAdress,
+		shipCity,
+		shipCountry,
+		shipPostalCode,
+		shipRegion
+	  }
+	});
+  }
+  
   async update(id: number, dto: GetAllOrderDto) {
-		const { status,shipAdress,shipCity,shipCountry,shipPostalCode,shipRegion } = dto
-		return this.prisma.order.update({
-			where: {
-				id
-			},
-			data: {
-			status,
-			shipAdress,
-			shipCity,
-			shipCountry,
-			shipPostalCode,
-			shipRegion,
-			}
-		})
-	}
+	const { status, shipAdress, shipCity, shipCountry, shipPostalCode, shipRegion, user } = dto;
+  
+	return this.prisma.order.update({
+	  where: {
+		id
+	  },
+	  data: {
+		status,
+		shipAdress,
+		shipCity,
+		shipCountry,
+		shipPostalCode,
+		shipRegion
+	  }
+	});
+  }
+  
 
 	async delete(id: number) {
 		return this.prisma.order.delete({ where: { id } })
