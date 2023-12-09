@@ -5,6 +5,11 @@ import NotFound from '../screens/not-found/NotFound'
 import ProductDetailsPage from '../screens/product-page/ProductDetailsPage'
 import AuthPage from '../screens/auth-page/AuthPage'
 import AuthProvider from '@/providers/auth-provider/AuthProvider'
+import AdminPanel from '../screens/admin-panel/AdminPanel'
+import { getAdminUrl } from '@/config/url.config'
+import AdminPanelProducts from '../screens/admin-panel/products/AdminPanelProducts'
+import AdminPanelCategories from '../screens/admin-panel/categories/AdminPanelCategories'
+import AdminPanelOrders from '../screens/admin-panel/orders/AdminPanelOrders'
 
 const Router = () => {
 	return (
@@ -13,16 +18,16 @@ const Router = () => {
 				<Route
 					element={<AuthProvider role={{}} children={<Home />} />}
 					path='/'
-				></Route>
+				/>
 				<Route
 					element={<AuthProvider role={{}} children={<CategoryPage />} />}
 					path='/categories/:slug'
-				></Route>
+				/>
 				<Route
 					element={<AuthProvider role={{}} children={<ProductDetailsPage />} />}
 					path='/products/:id'
-				></Route>
-				<Route element={<AuthPage />} path='/auth'></Route>
+				/>
+				<Route element={<AuthPage />} path='/auth' />
 				<Route
 					element={
 						<AuthProvider
@@ -31,17 +36,42 @@ const Router = () => {
 						/>
 					}
 					path='/my-cabinet'
-				></Route>
+				/>
+				<Route
+					element={
+						<AuthProvider role={{ isAdmin: true }} children={<AdminPanel />} />
+					}
+					path={getAdminUrl()}
+				/>
 				<Route
 					element={
 						<AuthProvider
 							role={{ isAdmin: true }}
-							children={<div>Admin panel</div>}
+							children={<AdminPanelProducts />}
 						/>
 					}
-					path='/admin-panel'
-				></Route>
-				<Route path='*' element={<NotFound />}></Route>
+					path={getAdminUrl('/products')}
+				/>
+				<Route
+					element={
+						<AuthProvider
+							role={{ isAdmin: true }}
+							children={<AdminPanelCategories />}
+						/>
+					}
+					path={getAdminUrl('/categories')}
+				/>
+				<Route
+					element={
+						<AuthProvider
+							role={{ isAdmin: true }}
+							children={<AdminPanelOrders />}
+						/>
+					}
+					path={getAdminUrl('/orders')}
+				/>
+
+				<Route path='*' element={<NotFound />} />
 			</Routes>
 		</BrowserRouter>
 	)

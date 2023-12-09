@@ -3,7 +3,7 @@ import { FC } from 'react'
 import ProductDetails from '@/components/ui/product-details/ProductDetails'
 import { useParams } from 'react-router-dom'
 import NotFound from '../not-found/NotFound'
-import { useProductById } from '@/hooks/useProducts'
+import { useProductById } from '@/hooks/query/useProducts'
 
 const ProductDetailsPage: FC = () => {
 	const { id } = useParams()

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import Catalog from '@/components/ui/catalog/Catalog'
 import Layout from '@/components/layout/Layout'
 import NotFound from '../not-found/NotFound'
-import { useProductBySlug } from '@/hooks/useProducts'
+import { useProductBySlug } from '@/hooks/query/useProducts'
 
 const CategoryPage: FC = () => {
 	const { slug } = useParams()

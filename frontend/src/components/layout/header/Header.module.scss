@@ -19,5 +19,15 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+
+		.users {
+			display: flex;
+			align-items: center;
+			gap: 30px;
+			img {
+				width: 30px;
+				height: 30px;
+			}
+		}
 	}
 }
