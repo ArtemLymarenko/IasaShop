@@ -1,18 +1,29 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+	Body,
+	Controller,
+	Delete,
+	Get,
+	HttpCode,
+	Param,
+	Patch,
+	Post,
+	Put,
+	UsePipes,
+	ValidationPipe
+} from '@nestjs/common'
 
-import { OrderItemService } from './order-item.service';
-import { GetAllOrderItemDto } from './dto/order-item.dto';
+import { OrderItemService } from './order-item.service'
+import { GetAllOrderItemDto } from './dto/order-item.dto'
 
 @Controller('order-item')
 export class OrderItemController {
-  constructor(private readonly orderItemService: OrderItemService) {}
+	constructor(private readonly orderItemService: OrderItemService) {}
 
-  
-  @UsePipes(new ValidationPipe())
+	@UsePipes(new ValidationPipe())
 	@HttpCode(200)
 	//@Auth()
 	@Post()
-	async createProduct(@Body() dto: GetAllOrderItemDto ) {
+	async createProduct(@Body() dto: GetAllOrderItemDto) {
 		return this.orderItemService.create()
 	}
 
@@ -20,7 +31,10 @@ export class OrderItemController {
 	@HttpCode(200)
 	@Put(':id')
 	//@Auth()
-	async updateProduct(@Param('id') id: string, @Body() dto: GetAllOrderItemDto) {
+	async updateProduct(
+		@Param('id') id: string,
+		@Body() dto: GetAllOrderItemDto
+	) {
 		return this.orderItemService.update(+id, dto)
 	}
 
@@ -37,7 +51,7 @@ export class OrderItemController {
 		return this.orderItemService.byId(+id)
 	}
 
-  @HttpCode(200)
+	@HttpCode(200)
 	@Get()
 	async getAll() {
 		return this.orderItemService.getAll()

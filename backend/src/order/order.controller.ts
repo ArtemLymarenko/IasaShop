@@ -1,20 +1,30 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, HttpCode, Put, ValidationPipe } from '@nestjs/common';
-import { OrderService } from './order.service';
-import { GetAllOrderDto } from './dto/order.dto';
-import { ProductDto } from 'src/product/dto/product.dto';
-
+import {
+	Controller,
+	Get,
+	Post,
+	Body,
+	Patch,
+	Param,
+	Delete,
+	UsePipes,
+	HttpCode,
+	Put,
+	ValidationPipe
+} from '@nestjs/common'
+import { OrderService } from './order.service'
+import { GetAllOrderDto } from './dto/order.dto'
+import { ProductDto } from 'src/product/dto/product.dto'
 
 @Controller('order')
 export class OrderController {
-  constructor(private readonly orderService: OrderService) {}
+	constructor(private readonly orderService: OrderService) {}
 
-  
-  @UsePipes(new ValidationPipe())
+	@UsePipes(new ValidationPipe())
 	@HttpCode(200)
 	//@Auth()
 	@Post()
-	async createProduct() {
-		return this.orderService.create()
+	async createProduct(@Body() dto: GetAllOrderDto) {
+		return this.orderService.create(dto)
 	}
 
 	@UsePipes(new ValidationPipe())
@@ -38,10 +48,9 @@ export class OrderController {
 		return this.orderService.byId(+id)
 	}
 
-  @HttpCode(200)
+	@HttpCode(200)
 	@Get()
 	async getAll() {
 		return this.orderService.getAll()
 	}
-
 }
