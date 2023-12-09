@@ -31,7 +31,7 @@ export class ProductInfoController {
 
   @HttpCode(200)
 	@Get('by-productId/:id')
-	getProductByCategory(@Param('id') productId: number) {
+	async getSizeByProductId(@Param('id') productId: number) {
 		return this.productInfoService.byProductId(+productId)
 	}
 

@@ -73,7 +73,7 @@ const createUserAccounts = async (quantity: number) => {
 				email: faker.internet.email(),
 				password: faker.internet.password(),
 				phone: faker.phone.number(),
-				isAdmin: false
+				isAdmin: true
 			}
 		})
 
@@ -83,19 +83,7 @@ const createUserAccounts = async (quantity: number) => {
 	console.log(`Created ${users.length} user accounts`)
 }
 
-const isDuplicateSize = async (
-	productId: number,
-	sizeName: string
-): Promise<boolean> => {
-	const existingProductInfo = await prisma.productInfo.findFirst({
-		where: {
-			productId,
-			sizeName
-		}
-	})
 
-	return !!existingProductInfo
-}
 
 const createProductInfo = async (quantity: number) => {
 	try {
@@ -131,8 +119,8 @@ async function main() {
 	console.log('Start seeding...')
 	//await createCategories()
 	//await createProducts(10)
-	//await createUserAccounts(3)
-	await createProductInfo(3)
+	await createUserAccounts(1)
+	//await createProductInfo(3)
 }
 
 main()
