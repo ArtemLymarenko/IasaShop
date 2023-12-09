@@ -70,7 +70,6 @@ export class ProductService {
 			},
 			select: productReturnObjectFullSet
 		})
-		// Ensure that there's a closing curly brace here
 
 		if (!product) {
 			throw new NotFoundException('Product not found')
