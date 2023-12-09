@@ -1,0 +1,47 @@
+@import '@/assets/styles/variables.scss';
+.wrapper {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 40px;
+
+	.item {
+		border-radius: 8px;
+		background: $grey-light;
+		width: 250px;
+		color: $black;
+		box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+		padding: 24px;
+
+		transform: translateX(-100%);
+		opacity: 0;
+		animation: slideInLeft 1s forwards;
+
+		@for $i from 1 through 4 {
+			&:nth-child(#{$i}) {
+				animation-delay: 0.4s * $i;
+			}
+		}
+
+		> div {
+			&:first-child {
+				margin-bottom: 8px;
+			}
+			&:last-child {
+				font-size: 24px;
+				line-height: 32px;
+				font-weight: 600;
+			}
+		}
+	}
+}
+
+@keyframes slideInLeft {
+	from {
+		transform: translateX(-100%);
+		opacity: 0;
+	}
+	to {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}

@@ -1,7 +1,18 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
-import { CategoryDto } from './category.dto';
-import { CategoryService } from './category.service';
-import { Auth } from 'src/auth/decorators/auth.decorator';
+import {
+	Body,
+	Controller,
+	Delete,
+	Get,
+	HttpCode,
+	Param,
+	Post,
+	Put,
+	UsePipes,
+	ValidationPipe
+} from '@nestjs/common'
+import { CategoryDto } from './category.dto'
+import { CategoryService } from './category.service'
+import { Auth } from 'src/auth/decorators/auth.decorator'
 
 @Controller('categories')
 export class CategoryController {
@@ -50,6 +61,4 @@ export class CategoryController {
   ){
     return this.categoryService.update(+id,dto)
   }
-
-
 }

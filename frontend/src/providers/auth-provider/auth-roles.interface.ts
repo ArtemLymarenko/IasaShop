@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 
 export type TypeRole = {
 	isUser?: boolean
-	//isAdmin: boolean
+	isAdmin?: boolean
 }
 
 export interface AuthRoles {

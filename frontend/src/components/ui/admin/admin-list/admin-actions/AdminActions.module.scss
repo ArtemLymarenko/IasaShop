@@ -1,0 +1,20 @@
+.actions {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+
+	> button {
+		border: none;
+		background: transparent;
+		font-size: 20px;
+		line-height: 28px;
+		opacity: 0.8;
+		outline: none;
+		transition-property: opacity;
+		transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+		transition-duration: 150ms;
+		&:hover {
+			opacity: 1;
+		}
+	}
+}

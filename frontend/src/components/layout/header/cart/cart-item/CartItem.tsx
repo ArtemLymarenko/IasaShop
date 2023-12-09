@@ -8,11 +8,11 @@ const CartItem: FC<{ item: ICartItem }> = ({ item }) => {
 	return (
 		<div className={styles.item}>
 			<div className={styles.imgContent}>
-				<img src={item.product.images[0]} alt={item.product.name} />
+				<img src={item.product.images[0]} alt={item.product.productName} />
 			</div>
 
 			<div>
-				<div className={styles.name}>{item.product.name}</div>
+				<div className={styles.name}>{item.product.productName}</div>
 				<div className={styles.itemSize}>
 					Size: <span>{item.size.size}</span>
 				</div>

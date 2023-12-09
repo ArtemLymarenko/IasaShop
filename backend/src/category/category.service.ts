@@ -8,6 +8,7 @@ import { returnCategoryObject } from './return-category.object'
 export class CategoryService {
 	constructor(private prisma: PrismaService) {}
 
+
 	async byId(id: number) {
 		const category = await this.prisma.category.findUnique({
 			where: {
@@ -15,7 +16,6 @@ export class CategoryService {
 			},
 			select: returnCategoryObject
 		})
-		// Ensure that there's a closing curly brace here
 
 		if (!category) {
 			throw new NotFoundException('Category not found')
@@ -23,6 +23,8 @@ export class CategoryService {
 
 		return category
 	}
+
+	//Need
 	async bySlug(slug: string) {
 		const category = await this.prisma.category.findUnique({
 			where: {
@@ -30,7 +32,6 @@ export class CategoryService {
 			},
 			select: returnCategoryObject
 		})
-		// Ensure that there's a closing curly brace here
 
 		if (!category) {
 			throw new NotFoundException('Category not found')

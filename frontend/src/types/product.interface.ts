@@ -1,4 +1,3 @@
-import { ICategory } from './category.interface'
 import { ISize } from './size.interface'
 
 export interface IProduct {
@@ -9,7 +8,8 @@ export interface IProduct {
 	description: string
 	images: string[]
 	createdAt: string
-	categoryId: number //replace by categoryId
+	categoryId: number
+	sizes: ISize[]
 }
 
 export interface IProductDetails {
