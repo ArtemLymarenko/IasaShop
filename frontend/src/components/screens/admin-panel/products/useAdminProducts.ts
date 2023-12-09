@@ -1,7 +1,6 @@
 import productService from '@/components/services/product/product.service'
 import { IListItem } from '@/components/ui/admin/admin-list/admin-list.interface'
 import { getAdminUrl } from '@/config/url.config'
-import { useCategoryById } from '@/hooks/query/useCategories'
 import { useMutation, useQuery } from '@tanstack/react-query'
 
 export const useAdminProducts = () => {
