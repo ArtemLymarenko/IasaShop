@@ -4,13 +4,24 @@ import AdminListItem from './AdminListItem'
 import styles from './AdminList.module.scss'
 
 interface IAdminList {
+	header: string[]
 	listItems?: IListItem[]
 	removeHandler?: (id: number) => void
 }
 
-const AdminList: FC<IAdminList> = ({ listItems = [], removeHandler }) => {
+const AdminList: FC<IAdminList> = ({
+	header = [],
+	listItems = [],
+	removeHandler
+}) => {
 	return (
 		<div className={styles.items}>
+			<div className={styles.header}>
+				{header.length
+					? header.map(headerItem => <div key={headerItem}>{headerItem}</div>)
+					: ''}
+				<div className={styles.placeholder}></div>
+			</div>
 			{listItems.length ? (
 				listItems.map(listItem => (
 					<AdminListItem

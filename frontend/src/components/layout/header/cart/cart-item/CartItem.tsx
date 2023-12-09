@@ -14,7 +14,7 @@ const CartItem: FC<{ item: ICartItem }> = ({ item }) => {
 			<div>
 				<div className={styles.name}>{item.product.productName}</div>
 				<div className={styles.itemSize}>
-					Size: <span>{item.size.size}</span>
+					Size: <span>{item.size.sizeName}</span>
 				</div>
 				<div className={styles.price}>
 					{formatToCurrency(item.product.price)}

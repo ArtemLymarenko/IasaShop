@@ -14,6 +14,7 @@ const CheckRole: FC<AuthRoles> = ({ role, children }) => {
 	if (user && role.isUser) return <>{children}</>
 	if (user && role.isAdmin) return <NotFound />
 
+	//Fix redirecting
 	useEffect(() => {
 		currentPath !== '/auth' && navigate('/auth')
 	})

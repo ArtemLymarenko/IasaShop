@@ -1,5 +1,3 @@
-import { ISize } from './size.interface'
-
 export interface IProduct {
 	id: number
 	productName: string
@@ -9,7 +7,6 @@ export interface IProduct {
 	images: string[]
 	createdAt: string
 	categoryId: number
-	sizes: ISize[]
 }
 
 export interface IProductDetails {
