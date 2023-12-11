@@ -1,3 +1,5 @@
+import { IProductInfo } from './product-info.interface'
+
 export interface IProduct {
 	id: number
 	productName: string
@@ -7,6 +9,7 @@ export interface IProduct {
 	images: string[]
 	createdAt: string
 	categoryId: number
+	sizes: IProductInfo[]
 }
 
 export interface IProductDetails {

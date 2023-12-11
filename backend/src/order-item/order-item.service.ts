@@ -9,13 +9,14 @@ import { returnOrderItem } from './retrun-order-item.object';
 export class OrderItemService {
   constructor(private prisma: PrismaService) {}
 
-  async create() {
+  async create(dto: GetAllOrderItemDto) {
+	const { orderId,productInfoId,quantity,price } = dto
 	return this.prisma.orderItem.create({
-	  data: {
-      orderId: null,
-      productInfoId: 1,
-      quantity: 1,
-      price: 1,
+		data: {
+			orderId: 2,
+			productInfoId,
+			quantity,
+			price,
 		}
 	})
 }

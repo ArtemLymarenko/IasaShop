@@ -22,7 +22,7 @@ export class ProductInfoController {
 	@HttpCode(200)
 	//@Auth()
 	@Post()
-	async createProduct(@Body() dto: ProductInfoDto) {
+	async createProductInfo(@Body() dto: ProductInfoDto) {
 		return this.productInfoService.create(dto)
 	}
 

@@ -12,6 +12,7 @@ import AdminPanelCategories from '../screens/admin-panel/categories/AdminCategor
 import AdminPanelOrders from '../screens/admin-panel/orders/AdminOrders'
 import Dashboard from '../screens/admin-panel/dashboard/Dashboard'
 import UserPage from '../screens/user-page/UserPage'
+import CheckoutPage from '../screens/checkout/checkout'
 
 const Router = () => {
 	return (
@@ -92,7 +93,7 @@ const Router = () => {
 					}
 					path={getAdminUrl('/orders')}
 				/>
-
+                <Route path='/checkout' element={<CheckoutPage />} /> 
 				<Route path='*' element={<NotFound />} />
 			</Routes>
 		</BrowserRouter>

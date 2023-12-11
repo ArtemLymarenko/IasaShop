@@ -23,15 +23,15 @@ export class OrderItemController {
 	@HttpCode(200)
 	//@Auth()
 	@Post()
-	async createProduct(@Body() dto: GetAllOrderItemDto) {
-		return this.orderItemService.create()
+	async createOrderItem(@Body() dto: GetAllOrderItemDto) {
+		return this.orderItemService.create(dto)
 	}
 
 	@UsePipes(new ValidationPipe())
 	@HttpCode(200)
 	@Put(':id')
 	//@Auth()
-	async updateProduct(
+	async updateOrderItem(
 		@Param('id') id: string,
 		@Body() dto: GetAllOrderItemDto
 	) {
@@ -41,13 +41,13 @@ export class OrderItemController {
 	@HttpCode(200)
 	@Delete(':id')
 	//@Auth()
-	async deleteProduct(@Param('id') id: string) {
+	async deleteOrderItem(@Param('id') id: string) {
 		return this.orderItemService.delete(+id)
 	}
 
 	@Get(':id')
 	//@Auth()
-	async getProduct(@Param('id') id: string) {
+	async getOrderItem(@Param('id') id: string) {
 		return this.orderItemService.byId(+id)
 	}
 
