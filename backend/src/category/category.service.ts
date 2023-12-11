@@ -8,7 +8,6 @@ import { returnCategoryObject } from './return-category.object'
 export class CategoryService {
 	constructor(private prisma: PrismaService) {}
 
-
 	async byId(id: number) {
 		const category = await this.prisma.category.findUnique({
 			where: {
@@ -54,18 +53,24 @@ export class CategoryService {
 
 	async delete(id: number) {
 		const products = await this.prisma.product.findMany({
-		  where: {
-			categoryId: id,
-		  },
-		});
-	  
-		for (const product of products) {
-		  await this.prisma.product.delete({
 			where: {
-			  id: product.id,
-			},
-		  });
+				categoryId: id
+			}
+		})
+
+		for (const product of products) {
+			await this.prisma.product.delete({
+				where: {
+					id: product.id
+				}
+			})
 		}
+		return this.prisma.category.delete({
+			where: {
+				id
+			}
+		})
+	}
 	  
 		return this.prisma.category.delete({
 		  where: {

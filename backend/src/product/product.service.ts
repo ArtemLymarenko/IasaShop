@@ -116,22 +116,22 @@ export class ProductService {
 		return products
 	}
 	async create(dto: ProductDto) {
-		const { productName, price, description, images, categoryId } = dto;
+		const { productName, price, description, images, categoryId } = dto
 		return this.prisma.product.create({
-		  data: {
-			productName,
-			price,
-			description,
-			images,
-			category: {
-			  connect: {
-				id: categoryId,
-			  },
-			},
-		  },
-		});
-	  }
-	  
+			data: {
+				productName,
+				price,
+				description,
+				images,
+				category: {
+					connect: {
+						id: categoryId
+					}
+				}
+			}
+		})
+	}
+
 	async update(id: number, dto: ProductDto) {
 		const { description, images, price, productName, categoryId } = dto
 		return this.prisma.product.update({
@@ -159,8 +159,16 @@ export class ProductService {
 		});
 	  }
 
+	private async deleteProductInfos(productId: number) {
+		await this.prisma.productInfo.deleteMany({
+			where: {
+				productId
+			}
+		})
+	}
+
 	async delete(id: number) {
-		await this.deleteProductInfos(id);
+		await this.deleteProductInfos(id)
 		return this.prisma.product.delete({ where: { id } })
 	}
 

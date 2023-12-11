@@ -23,6 +23,7 @@ class CategoryService {
 		})
 	}
 
+
 	async create(categoryName: string) {
 		return instance<ICategory>({
 			url: `/categories`,
@@ -41,7 +42,7 @@ class CategoryService {
 
 	async delete(id: number) {
 		return instance<ICategory>({
-			url: `/category/${id}`,
+			url: `/categories/${id}`,
 			method: 'DELETE'
 		})
 	}

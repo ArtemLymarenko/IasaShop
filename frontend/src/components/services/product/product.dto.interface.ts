@@ -3,4 +3,5 @@ export interface IProductDto {
 	price: number
 	description: string
 	images: string[]
+	categoryId: number
 }

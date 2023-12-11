@@ -9,7 +9,13 @@ const AdminListItem: FC<IAdminListItem> = ({ removeHandler, listItem }) => {
 			{listItem.items.map(item => (
 				<div key={item}>{item}</div>
 			))}
-			<div>
+			<div
+				style={{
+					display: 'flex',
+					flexDirection: 'column',
+					alignItems: 'center'
+				}}
+			>
 				{listItem.productInfo &&
 					listItem.productInfo.map(info => (
 						<div key={info.id}>{`${info.sizeName}: ${info.amountStorage}`}</div>

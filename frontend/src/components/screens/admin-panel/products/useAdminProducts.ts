@@ -1,7 +1,9 @@
-import productInfoService from '@/components/services/product-info/productInfo.service'
+import productInfoService from '@/components/services/product-info/product-info.service'
 import productService from '@/components/services/product/product.service'
 import { IListItem } from '@/components/ui/admin/admin-list/admin-list.interface'
 import { getAdminUrl } from '@/config/url.config'
+import { formatDate } from '@/utils/format-date'
+import { formatToCurrency } from '@/utils/format-to-currency'
 import { useMutation, useQuery } from '@tanstack/react-query'
 
 export const useAdminProducts = () => {
@@ -9,10 +11,10 @@ export const useAdminProducts = () => {
 		queryKey: ['get admin products'],
 		queryFn: async () => {
 			const products = await productService.getAll()
-
 			const productsWithInfo = await Promise.all(
 				products.data.map(async product => {
 					const productInfo = await productInfoService.getById(product.id)
+
 					return {
 						...product,
 						productInfo: productInfo.data
@@ -30,8 +32,9 @@ export const useAdminProducts = () => {
 					editUrl: getAdminUrl(`/products/edit/${product.id}`),
 					items: [
 						product.productName,
-						product.categoryId.toString(),
-						product.createdAt
+						formatDate(product.createdAt),
+						formatToCurrency(product.price),
+						product.categoryId.toString()
 					],
 					productInfo: product.productInfo
 				}

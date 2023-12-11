@@ -7,13 +7,13 @@
 		margin-top: 12px;
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: space-around;
 		padding: 30px;
 		font-weight: 600;
 	}
 
 	.placeholder {
-		width: 10%;
+		width: 5%;
 	}
 
 	.item {
@@ -21,7 +21,7 @@
 		display: flex;
 		align-items: flex-start;
 		justify-content: space-between;
-		gap: 170px;
+		gap: 20px;
 		border-radius: 10px;
 		background: $grey-light;
 		padding: 0 30px;
@@ -36,8 +36,10 @@
 		}
 
 		> div {
+			display: flex;
+			justify-content: center;
 			padding: 16px 0;
-			width: 24%;
+			width: 250px;
 
 			&:last-child {
 				justify-content: flex-end;
