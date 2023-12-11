@@ -56,7 +56,6 @@ const AddProductForm: FC = () => {
 	})
 
 	const onSubmit: SubmitHandler<IProductDto> = data => {
-		console.log(data)
 		reset()
 	}
 
