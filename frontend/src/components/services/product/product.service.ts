@@ -24,10 +24,11 @@ class ProductService {
 		})
 	}
 
-	async create() {
+	async create(productDto: IProductDto) {
 		return instance<IProduct>({
 			url: `/products`,
-			method: 'POST'
+			method: 'POST',
+			data:productDto
 		})
 	}
 

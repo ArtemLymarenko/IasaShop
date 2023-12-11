@@ -23,10 +23,11 @@ class CategoryService {
 		})
 	}
 
-	async create() {
+	async create(categoryName: string) {
 		return instance<ICategory>({
 			url: `/categories`,
-			method: 'POST'
+			method: 'POST',
+			data: categoryName
 		})
 	}
 
