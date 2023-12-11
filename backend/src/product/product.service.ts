@@ -152,14 +152,13 @@ export class ProductService {
 		})
 	}
 	private async deleteProductInfos(productId: number) {
-		// Delete all associated ProductInfos
 		await this.prisma.productInfo.deleteMany({
 		  where: {
 			productId,
 		  },
 		});
 	  }
-	  
+
 	async delete(id: number) {
 		await this.deleteProductInfos(id);
 		return this.prisma.product.delete({ where: { id } })

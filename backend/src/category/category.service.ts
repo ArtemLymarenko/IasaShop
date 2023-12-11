@@ -53,16 +53,12 @@ export class CategoryService {
 	}
 
 	async delete(id: number) {
-		const category = await this.byId(id);
-	  
-		// Find all products associated with the category
 		const products = await this.prisma.product.findMany({
 		  where: {
 			categoryId: id,
 		  },
 		});
 	  
-		// Delete each product associated with the category
 		for (const product of products) {
 		  await this.prisma.product.delete({
 			where: {
@@ -71,7 +67,6 @@ export class CategoryService {
 		  });
 		}
 	  
-		// Finally, delete the category
 		return this.prisma.category.delete({
 		  where: {
 			id,

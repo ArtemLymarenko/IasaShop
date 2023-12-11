@@ -117,8 +117,8 @@ const createProductInfo = async (quantity: number) => {
 async function main() {
 	console.log('Start seeding...')
 	//await createCategories()
-	//await createProducts(10)
-	await createUserAccounts(5)
+	await createProducts(10)
+	//await createUserAccounts(5)
 	//await createProductInfo(3)
 }
 

@@ -1,5 +1,5 @@
 import { ICategory } from '@/types/category.interface'
-import { instance } from '../api/api.interceptor'
+import { instance } from '../../api/api.interceptor'
 
 class CategoryService {
 	async getAll() {

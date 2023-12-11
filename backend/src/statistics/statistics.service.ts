@@ -30,11 +30,15 @@ export class StatisticsService {
   }
 
   async getTotalIncome(): Promise<number> {
-    const products = await this.productService.getAll();
-    const totalIncome = products.reduce((sum, product) => {
-      return sum.plus(new Decimal(product.price));
+    const orders = await this.orderService.getAll();
+    const totalIncome = orders.reduce((sum, order) => {
+      const orderTotal = order.items.reduce((orderSum, item) => {
+        const itemTotal = new Decimal(item.quantity).times(new Decimal(item.price));
+        return orderSum.plus(itemTotal);
+      }, new Decimal(0));
+      return sum.plus(orderTotal);
     }, new Decimal(0));
-    return totalIncome.toNumber(); // Convert Decimal back to number
+    return totalIncome.toNumber();
   }
 
 }
