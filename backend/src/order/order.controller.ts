@@ -35,8 +35,8 @@ export class OrderController {
 	@HttpCode(200)
 	//@Auth()
 	@Post()
-	async placeOrder(@CurrentUser('id') usderId:number, @Body() dto: GetAllOrderDto) {
-		return this.orderService.placeOrder(usderId,dto)
+	async placeOrder(@Body() dto: GetAllOrderDto) {
+		return this.orderService.placeOrder(dto)
 	}
 
 

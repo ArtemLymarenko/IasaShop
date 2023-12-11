@@ -1,6 +1,5 @@
 import { ICategory } from '@/types/category.interface'
 import { instance } from '../../api/api.interceptor'
-import { ICategoryDto } from './categoryDto'
 
 class CategoryService {
 	async getAll() {
@@ -24,11 +23,12 @@ class CategoryService {
 		})
 	}
 
-	async create(categoryDto: ICategoryDto) {
+
+	async create(categoryName: string) {
 		return instance<ICategory>({
 			url: `/categories`,
 			method: 'POST',
-			data: categoryDto
+			data: categoryName
 		})
 	}
 

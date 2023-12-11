@@ -1,8 +1,7 @@
 import { IsNumber } from 'class-validator';
 
 export class GetAllOrderItemDto {
-    @IsNumber()
-    orderId: number;
+    orderId?: number;
     
     @IsNumber()
     productInfoId: number;

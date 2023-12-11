@@ -30,6 +30,6 @@ export class GetAllOrderDto{
     @IsString()
     orderDate:string;
     
-    items: OrderItem[];
-    userId: number;
+    items?: OrderItem[];
+    userId?: number;
 }

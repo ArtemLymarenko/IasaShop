@@ -71,6 +71,14 @@ export class CategoryService {
 			}
 		})
 	}
+	  
+		return this.prisma.category.delete({
+		  where: {
+			id,
+		  },
+		});
+	  }
+	  
 	async create(dto: CategoryDto) {
 		const { categoryName } = dto
 		return this.prisma.category.create({
