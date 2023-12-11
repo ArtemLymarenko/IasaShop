@@ -5,7 +5,7 @@ import ProductInformation from './ProductInformation'
 import { IProductDetails } from '@/types/product.interface'
 import ProductVariations from './product-variations/ProductVariations'
 import { useQuery } from '@tanstack/react-query'
-import productInfoService from '@/components/services/product-info/productInfo.service'
+import productInfoService from '@/components/services/product-info/product-info.service'
 import { IProductInfo } from '@/types/productInfo.interface'
 import NotFound from '@/components/screens/not-found/NotFound'
 
@@ -16,9 +16,10 @@ const ProductCard: FC<IProductDetails> = ({ product }) => {
 		select: ({ data }) => data
 	})
 
-	if (!data) return <NotFound />
+	const [selectedSize, setSelectedSize] = useState<IProductInfo | null>(null)
 
-	const [selectedSize, setSelectedSize] = useState<IProductInfo>(data[0])
+	if (!data) return <NotFound />
+	if (!selectedSize) setSelectedSize(data[0])
 
 	return (
 		<div className={styles.card}>

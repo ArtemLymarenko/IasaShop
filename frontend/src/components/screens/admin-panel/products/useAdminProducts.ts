@@ -1,4 +1,4 @@
-import productInfoService from '@/components/services/product-info/productInfo.service'
+import productInfoService from '@/components/services/product-info/product-info.service'
 import productService from '@/components/services/product/product.service'
 import { IListItem } from '@/components/ui/admin/admin-list/admin-list.interface'
 import { getAdminUrl } from '@/config/url.config'
