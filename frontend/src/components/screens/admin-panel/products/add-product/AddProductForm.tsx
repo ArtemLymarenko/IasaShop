@@ -175,7 +175,7 @@ const AddProductForm: FC = () => {
 									{...formRegister(`size.${index}.amountStorage`, {
 										required: 'Quantity is required',
 										pattern: {
-											value: /^\d+$/,
+											value: /^[0-9]+$/,
 											message: 'Please enter a valid whole number.'
 										}
 									})}

@@ -1,3 +1,4 @@
+
 import { FC, useState, useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import Layout from '@/components/layout/Layout';
@@ -99,3 +100,4 @@ const UserPage: FC<{ pageTitle: string }> = ({ pageTitle }) => {
 };
 
 export default UserPage;
+

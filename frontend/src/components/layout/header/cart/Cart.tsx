@@ -13,11 +13,12 @@ import {
 } from '@chakra-ui/react'
 import { formatToCurrency } from '@/utils/format-to-currency'
 import { useCart } from '@/hooks/useCart'
+import { useNavigate } from 'react-router-dom'
 
 const Cart: FC = () => {
 	const [isOpen, setIsOpen] = useState(false)
 	const btnRef = useRef<HTMLButtonElement>(null)
-
+	const navigate = useNavigate()
 	const { cart, totalSum } = useCart()
 
 	return (
@@ -64,6 +65,7 @@ const Cart: FC = () => {
 								color: '#000000',
 								border: '1px solid black'
 							}}
+							onClick={() => navigate('/checkout')}
 						>
 							Checkout
 						</Button>

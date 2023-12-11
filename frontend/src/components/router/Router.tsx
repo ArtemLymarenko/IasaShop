@@ -12,6 +12,7 @@ import AdminPanelCategories from '../screens/admin-panel/categories/AdminCategor
 import AdminPanelOrders from '../screens/admin-panel/orders/AdminOrders'
 import Dashboard from '../screens/admin-panel/dashboard/Dashboard'
 import UserPage from '../screens/user-page/UserPage'
+import CheckoutPage from '../screens/checkout/CheckoutPage'
 
 const Router = () => {
 	return (
@@ -30,15 +31,7 @@ const Router = () => {
 					path='/products/:id'
 				/>
 				<Route element={<AuthPage />} path='/auth' />
-				<Route
-					element={
-						<AuthProvider
-							role={{ isUser: true }}
-							children={<UserPage pageTitle='My Cabinet' />}
-						/>
-					}
-					path='/my-cabinet'
-				/>
+
 				<Route
 					element={
 						<AuthProvider
@@ -91,6 +84,12 @@ const Router = () => {
 						/>
 					}
 					path={getAdminUrl('/orders')}
+				/>
+				<Route
+					path='/checkout'
+					element={
+						<AuthProvider role={{ isUser: true }} children={<CheckoutPage />} />
+					}
 				/>
 				<Route path='*' element={<NotFound />} />
 			</Routes>
