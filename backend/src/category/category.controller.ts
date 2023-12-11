@@ -36,12 +36,11 @@ export class CategoryController {
     return this.categoryService.byId(+id);
   }
 
-
   @HttpCode(200)
   //@Auth()
   @Post()
-  async create() {
-    return this.categoryService.create();
+  async create(@Body() dto: CategoryDto) {
+    return this.categoryService.create(dto);
   }
   
   @HttpCode(200)
@@ -55,10 +54,7 @@ export class CategoryController {
   @HttpCode(200)
   //@Auth()
   @Put(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() dto: CategoryDto
-  ){
+  async update( @Param('id') id: string,@Body() dto: CategoryDto){
     return this.categoryService.update(+id,dto)
   }
 }
