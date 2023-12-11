@@ -3,10 +3,12 @@ import styles from './AddCateforyForm.module.scss'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import Field from '@/components/ui/input/Field'
 import categoryService from '@/components/services/category/category.service'
-import { ICategoryDto } from '@/components/services/category/categoryDto'
+import { ICategoryDto } from '@/components/services/category/category.dto'
+import { useQueryClient } from '@tanstack/react-query'
 
 const AddCategoryForm: FC = () => {
 	const [errorMessage, setErrorMessage] = useState('')
+	const queryClient = useQueryClient()
 	const {
 		register: formRegister,
 		handleSubmit,
@@ -18,14 +20,14 @@ const AddCategoryForm: FC = () => {
 
 	const onSubmit: SubmitHandler<ICategoryDto> = async data => {
 		const category = await categoryService.create({
-			categoryName: data.categoryName,
-			slug: data.slug
+			categoryName: data.categoryName
 		})
 
 		if (!category) {
 			setErrorMessage('Something went wrong. Try again!')
 			return
 		}
+		await queryClient.invalidateQueries('get admin categories')
 		reset()
 	}
 
@@ -39,13 +41,6 @@ const AddCategoryForm: FC = () => {
 					})}
 					placeholder='Name'
 					error={errors.categoryName?.message}
-				/>
-				<Field
-					{...formRegister('slug', {
-						required: 'Slug is required'
-					})}
-					placeholder='Slug'
-					error={errors.slug?.message}
 				/>
 
 				<button type='submit'>Save</button>

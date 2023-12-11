@@ -5,6 +5,7 @@ import Field from '@/components/ui/input/Field'
 import productService from '@/components/services/product/product.service'
 import productInfoService from '@/components/services/product-info/product-info.service'
 import categoryService from '@/components/services/category/category.service'
+import { useQueryClient } from '@tanstack/react-query'
 
 interface ISizeDto {
 	sizeName: string
@@ -27,6 +28,7 @@ interface IProductForm {
 
 const AddProductForm: FC = () => {
 	const [errorMessage, setErrorMessage] = useState('')
+	const queryClient = useQueryClient()
 	const {
 		register: formRegister,
 		handleSubmit,
@@ -88,6 +90,7 @@ const AddProductForm: FC = () => {
 		} catch (error) {
 			setErrorMessage(`Something went wrong. Try again!`)
 		}
+		await queryClient.invalidateQueries('get admin products')
 		reset()
 	}
 
