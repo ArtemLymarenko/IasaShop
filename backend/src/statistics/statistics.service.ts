@@ -36,5 +36,5 @@ export class StatisticsService {
     }, new Decimal(0));
     return totalIncome.toNumber(); // Convert Decimal back to number
   }
-  
+
 }

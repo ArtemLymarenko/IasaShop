@@ -10,13 +10,13 @@ export class OrderItemService {
   constructor(private prisma: PrismaService) {}
 
   async create(dto: GetAllOrderItemDto) {
-	const { orderId,productInfoId,quantity,price } = dto
+	const { productInfoId,quantity,price } = dto
 	return this.prisma.orderItem.create({
 		data: {
-			orderId: 2,
 			productInfoId,
 			quantity,
 			price,
+			orderId: null
 		}
 	})
 }

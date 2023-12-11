@@ -53,12 +53,32 @@ export class CategoryService {
 	}
 
 	async delete(id: number) {
-		return this.prisma.category.delete({
+		const category = await this.byId(id);
+	  
+		// Find all products associated with the category
+		const products = await this.prisma.product.findMany({
+		  where: {
+			categoryId: id,
+		  },
+		});
+	  
+		// Delete each product associated with the category
+		for (const product of products) {
+		  await this.prisma.product.delete({
 			where: {
-				id
-			}
-		})
-	}
+			  id: product.id,
+			},
+		  });
+		}
+	  
+		// Finally, delete the category
+		return this.prisma.category.delete({
+		  where: {
+			id,
+		  },
+		});
+	  }
+	  
 	async create(dto: CategoryDto) {
 		const { categoryName } = dto
 		return this.prisma.category.create({

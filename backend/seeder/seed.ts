@@ -72,7 +72,7 @@ const createUserAccounts = async (quantity: number) => {
 				email: faker.internet.email(),
 				password: faker.internet.password(),
 				phone: faker.phone.number(),
-				isAdmin: true
+				isAdmin: false
 			}
 		})
 
@@ -118,8 +118,8 @@ async function main() {
 	console.log('Start seeding...')
 	//await createCategories()
 	//await createProducts(10)
-	//await createUserAccounts(1)
-	await createProductInfo(3)
+	await createUserAccounts(5)
+	//await createProductInfo(3)
 }
 
 main()
