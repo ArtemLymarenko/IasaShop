@@ -1,5 +1,6 @@
 import { ICategory } from '@/types/category.interface'
-import { instance } from '../api/api.interceptor'
+import { instance } from '../../api/api.interceptor'
+import { ICategoryDto } from './categoryDto'
 
 class CategoryService {
 	async getAll() {
@@ -23,10 +24,11 @@ class CategoryService {
 		})
 	}
 
-	async create() {
+	async create(categoryDto: ICategoryDto) {
 		return instance<ICategory>({
 			url: `/categories`,
-			method: 'POST'
+			method: 'POST',
+			data: categoryDto
 		})
 	}
 
@@ -40,7 +42,7 @@ class CategoryService {
 
 	async delete(id: number) {
 		return instance<ICategory>({
-			url: `/category/${id}`,
+			url: `/categories/${id}`,
 			method: 'DELETE'
 		})
 	}

@@ -1,7 +1,10 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import styles from './AddProductForm.module.scss'
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import Field from '@/components/ui/input/Field'
+import productService from '@/components/services/product/product.service'
+import productInfoService from '@/components/services/product-info/product-info.service'
+import categoryService from '@/components/services/category/category.service'
 
 interface ISizeDto {
 	sizeName: string
@@ -13,7 +16,7 @@ interface IImage {
 	image: string
 }
 
-interface IProductDto {
+interface IProductForm {
 	productName: string
 	price: number
 	description: string
@@ -23,13 +26,14 @@ interface IProductDto {
 }
 
 const AddProductForm: FC = () => {
+	const [errorMessage, setErrorMessage] = useState('')
 	const {
 		register: formRegister,
 		handleSubmit,
 		formState: { errors },
 		reset,
 		control
-	} = useForm<IProductDto>({
+	} = useForm<IProductForm>({
 		mode: 'onChange',
 		defaultValues: {
 			images: [],
@@ -55,12 +59,41 @@ const AddProductForm: FC = () => {
 		name: 'size'
 	})
 
-	const onSubmit: SubmitHandler<IProductDto> = data => {
+	const onSubmit: SubmitHandler<IProductForm> = async data => {
+		try {
+			const category = await categoryService.getBySlug(
+				data.categoryName.toLocaleLowerCase()
+			)
+
+			if (!category) {
+				throw new Error('Category not found')
+			}
+			const imagesString = data.images.map(image => image.image)
+			const product = await productService.create({
+				productName: data.productName,
+				price: parseFloat(data.price.toString()),
+				description: data.description,
+				images: imagesString,
+				categoryId: category.data.id
+			})
+			await Promise.all(
+				data.size.map(async size => {
+					await productInfoService.create({
+						productId: product.id,
+						amountStorage: parseInt(size.amountStorage.toString()),
+						sizeName: size.sizeName
+					})
+				})
+			)
+		} catch (error) {
+			setErrorMessage(`Something went wrong. Try again!`)
+		}
 		reset()
 	}
 
 	return (
 		<div className={styles.formContainer}>
+			<p className={styles.errorMessage}>{errorMessage}</p>
 			<form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
 				<div>
 					<Field
@@ -72,7 +105,11 @@ const AddProductForm: FC = () => {
 					/>
 					<Field
 						{...formRegister('price', {
-							required: 'Price is required'
+							required: 'Price is required',
+							pattern: {
+								value: /^\d+(\.\d{1,2})?$/,
+								message: 'Invalid price format'
+							}
 						})}
 						placeholder='Price'
 						error={errors.price?.message}
@@ -133,7 +170,11 @@ const AddProductForm: FC = () => {
 								/>
 								<Field
 									{...formRegister(`size.${index}.amountStorage`, {
-										required: 'Quantity is required'
+										required: 'Quantity is required',
+										pattern: {
+											value: /^\d+$/,
+											message: 'Please enter a valid whole number.'
+										}
 									})}
 									placeholder='Quantity'
 									error={errors.size?.message}
@@ -158,7 +199,7 @@ const AddProductForm: FC = () => {
 					</button>
 				</div>
 
-				<button type='submit'>Зберегти</button>
+				<button type='submit'>Save</button>
 			</form>
 		</div>
 	)

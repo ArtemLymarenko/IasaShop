@@ -10,8 +10,9 @@ const AdminProducts: FC = () => {
 	const { data, mutate } = useAdminProducts()
 	const header: string[] = [
 		'Product name',
-		'Category name',
 		'Created At',
+		'Price',
+		'Category id',
 		'Size/Quantity'
 	]
 

@@ -1,4 +1,4 @@
-import categoryService from '@/components/services/category.service'
+import categoryService from '@/components/services/category/category.service'
 import productService from '@/components/services/product/product.service'
 import { IListItem } from '@/components/ui/admin/admin-list/admin-list.interface'
 import { getAdminUrl } from '@/config/url.config'

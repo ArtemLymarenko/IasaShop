@@ -24,11 +24,14 @@ class ProductService {
 		})
 	}
 
-	async create() {
-		return instance<IProduct>({
+	async create(productDto: IProductDto) {
+		const response = await instance<IProduct>({
 			url: `/products`,
-			method: 'POST'
+			method: 'POST',
+			data: productDto
 		})
+
+		return response.data
 	}
 
 	async update(id: number, productDto: IProductDto) {

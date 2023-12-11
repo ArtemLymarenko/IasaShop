@@ -1,0 +1,55 @@
+import { FC, useState } from 'react'
+import styles from './AddProductForm.module.scss'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import Field from '@/components/ui/input/Field'
+import categoryService from '@/components/services/category/category.service'
+import { ICategoryDto } from '@/components/services/category/categoryDto'
+
+const AddCategoryForm: FC = () => {
+	const [errorMessage, setErrorMessage] = useState('')
+	const {
+		register: formRegister,
+		handleSubmit,
+		formState: { errors },
+		reset
+	} = useForm<ICategoryDto>({
+		mode: 'onChange'
+	})
+
+	const onSubmit: SubmitHandler<ICategoryDto> = async data => {
+		const category = await categoryService.create({
+			categoryName: data.categoryName,
+			slug: data.slug
+		})
+
+		if (!category) {
+			setErrorMessage('Something went wrong. Try again!')
+		}
+		reset()
+	}
+
+	return (
+		<div className={styles.formContainer}>
+			<p className={styles.errorMessage}>{errorMessage}</p>
+			<form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+				<Field
+					{...formRegister('categoryName', {
+						required: 'Name is required'
+					})}
+					placeholder='Name'
+					error={errors.categoryName?.message}
+				/>
+				<Field
+					{...formRegister('slug', {
+						required: 'Slug is required'
+					})}
+					placeholder='Price'
+					error={errors.slug?.message}
+				/>
+
+				<button type='submit'>Save</button>
+			</form>
+		</div>
+	)
+}
+export default AddCategoryForm
