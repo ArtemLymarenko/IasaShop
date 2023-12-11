@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, ReactNode } from 'react'
+import { FC } from 'react'
 import Layout, { LayoutProps } from '@/components/layout/Layout'
 import Heading from '@/components/ui/heading/Heading'
 import styles from './AdminPanel.module.scss'

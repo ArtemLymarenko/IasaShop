@@ -1,15 +1,29 @@
+import productInfoService from '@/components/services/product-info/productInfo.service'
 import productService from '@/components/services/product/product.service'
 import { IListItem } from '@/components/ui/admin/admin-list/admin-list.interface'
 import { getAdminUrl } from '@/config/url.config'
 import { useMutation, useQuery } from '@tanstack/react-query'
 
 export const useAdminProducts = () => {
-	const { data, isFetching, refetch } = useQuery({
+	const { data, refetch } = useQuery({
 		queryKey: ['get admin products'],
-		queryFn: () => productService.getAll(),
+		queryFn: async () => {
+			const products = await productService.getAll()
+
+			const productsWithInfo = await Promise.all(
+				products.data.map(async product => {
+					const productInfo = await productInfoService.getById(product.id)
+					return {
+						...product,
+						productInfo: productInfo.data
+					}
+				})
+			)
+
+			return productsWithInfo
+		},
 		select: data =>
-			data.data.map((product): IListItem => {
-				//const category = useCategoryById(product.categoryId)
+			data.map((product): IListItem => {
 				return {
 					id: product.id,
 					viewUrl: `/products/${product.id}`,
@@ -18,7 +32,8 @@ export const useAdminProducts = () => {
 						product.productName,
 						product.categoryId.toString(),
 						product.createdAt
-					]
+					],
+					productInfo: product.productInfo
 				}
 			})
 	})
@@ -29,5 +44,5 @@ export const useAdminProducts = () => {
 		onSuccess: () => refetch()
 	})
 
-	return { data, mutate, isFetching }
+	return { data, mutate }
 }

@@ -9,6 +9,12 @@ const AdminListItem: FC<IAdminListItem> = ({ removeHandler, listItem }) => {
 			{listItem.items.map(item => (
 				<div key={item}>{item}</div>
 			))}
+			<div>
+				{listItem.productInfo &&
+					listItem.productInfo.map(info => (
+						<div key={info.id}>{`${info.sizeName}: ${info.amountStorage}`}</div>
+					))}
+			</div>
 			<AdminActions
 				viewUrl={listItem.viewUrl}
 				editUrl={listItem.editUrl}

@@ -1,16 +1,16 @@
 import { FC } from 'react'
 import { Button } from '@chakra-ui/react'
-import { ISize } from '@/types/size.interface'
 import { useActions } from '@/hooks/useActions'
 import { IProduct } from '@/types/product.interface'
+import { IProductInfo } from '@/types/productInfo.interface'
 
 interface IAddToCart {
 	product: IProduct
-	selectedSize: ISize
+	selectedSize: IProductInfo
 }
 
 const AddToCartButton: FC<IAddToCart> = ({ product, selectedSize }) => {
-	const { addToCart, removeFromCart } = useActions()
+	const { addToCart } = useActions()
 
 	return (
 		<div>

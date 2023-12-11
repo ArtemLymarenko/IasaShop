@@ -2,17 +2,19 @@ import { Dispatch, FC, SetStateAction, useState } from 'react'
 import { IProduct } from '@/types/product.interface'
 import AddToCartButton from './add-to-cart-button/AddToCartButton'
 import styles from './ProductVariations.module.scss'
-import { ISize } from '@/types/size.interface'
 import cn from 'clsx'
+import { IProductInfo } from '@/types/productInfo.interface'
 
 interface IProductVariations {
 	product: IProduct
-	selectedSize: ISize
-	setSelectedSize: Dispatch<SetStateAction<ISize>>
+	sizes: IProductInfo[]
+	selectedSize: IProductInfo
+	setSelectedSize: Dispatch<SetStateAction<IProductInfo>>
 }
 
 const ProductVariations: FC<IProductVariations> = ({
 	product,
+	sizes,
 	selectedSize,
 	setSelectedSize
 }) => {
@@ -21,17 +23,17 @@ const ProductVariations: FC<IProductVariations> = ({
 			<div>
 				<p>Availiable sizes</p>
 				<div className={styles.sizes}>
-					{product.sizes.map(sizeItem => {
-						if (sizeItem.isAvailible) {
+					{sizes.map(sizeItem => {
+						if (sizeItem.amountStorage !== 0) {
 							return (
 								<button
-									key={sizeItem.size}
+									key={sizeItem.sizeName}
 									className={cn(styles.product, {
-										[styles.active]: selectedSize === sizeItem
+										[styles.active]: selectedSize.sizeName === sizeItem.sizeName
 									})}
 									onClick={() => setSelectedSize(sizeItem)}
 								>
-									{sizeItem.size}
+									{sizeItem.sizeName}
 								</button>
 							)
 						}

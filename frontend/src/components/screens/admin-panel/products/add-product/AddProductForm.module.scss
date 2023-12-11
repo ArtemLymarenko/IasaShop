@@ -1,0 +1,29 @@
+.formContainer {
+	height: 600px;
+	overflow-y: auto;
+
+	.form {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+
+		.size {
+		}
+		button {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 10px;
+			padding: 10px 30px;
+			background: black;
+			margin-top: 5px;
+			color: white;
+			&:hover {
+				color: black;
+				background: white;
+				border: 1px solid black;
+				transition: all 0.1s ease;
+			}
+		}
+	}
+}

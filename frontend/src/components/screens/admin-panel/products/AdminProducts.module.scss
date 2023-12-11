@@ -1,0 +1,25 @@
+@import '@/assets/styles/variables.scss';
+.content {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	gap: 30px;
+	.addButton {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: $white;
+		background: $black;
+		border-radius: 20px;
+		padding: 8px 8px 10px 8px;
+		width: 5%;
+		height: 100%;
+
+		&:hover {
+			background: $white;
+			color: $black;
+			border: 1px solid $black;
+			transition: all 0.4s ease;
+		}
+	}
+}
