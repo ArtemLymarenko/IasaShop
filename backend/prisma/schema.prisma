@@ -34,7 +34,7 @@ model Product{
 
   productName String @unique @map("product_name")
   description String
-  price Int
+  price Decimal
   images String[]
   
   category      Category?  @relation(fields: [categoryId], references: [id])
@@ -69,7 +69,7 @@ model OrderItem{
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  price Int
+  price Decimal
   quantity Int
   
   order      Order? @relation(fields: [orderId], references: [id])
