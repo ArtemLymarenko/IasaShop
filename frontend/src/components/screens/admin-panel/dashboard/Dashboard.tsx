@@ -1,21 +1,22 @@
 import { FC } from 'react'
 import styles from './Dashboard.module.scss'
-import {  useTotalOrders, useTotalProducts, useTotalIncome, useTotalUsers } from '@/hooks/useStatistics';
+import { useStatistics } from '@/hooks/useStatistics'
 import { formatToCurrency } from '@/utils/format-to-currency'
 
+interface IStaticticData {
+	name: string
+	value: number
+}
+
 const Dashboard: FC = () => {
+	const statistics = useStatistics()
 
-  const { data: totalUsers } = useTotalUsers();
-  const { data: totalOrders } = useTotalOrders();
-  const { data: totalProducts } = useTotalProducts();
-  const { data: totalIncome } = useTotalIncome();
-
-  const data: { name: string; value: number }[] = [
-    { name: 'Total users', value: totalUsers || 0 },
-    { name: 'Total orders', value: totalOrders || 0 },
-    { name: 'Total products', value: totalProducts || 0 },
-    { name: 'Total income', value: totalIncome || 0 },
-  ];
+	const data: IStaticticData[] = [
+		{ name: 'Total users', value: statistics?.usersCount || 0 },
+		{ name: 'Total orders', value: statistics?.ordersCount || 0 },
+		{ name: 'Total products', value: statistics?.productsCount || 0 },
+		{ name: 'Total income', value: statistics?.totalIncome || 0 }
+	]
 
 	return (
 		<div className={styles.wrapper}>
