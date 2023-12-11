@@ -1,9 +1,9 @@
 import { IProduct } from './product.interface'
-import { ISize } from './size.interface'
+import { IProductInfo } from './product-info.interface'
 
 export interface ICartItem {
 	id: number
 	product: IProduct
 	quantity: number
-	size: ISize
+	sizeInfo: IProductInfo
 }

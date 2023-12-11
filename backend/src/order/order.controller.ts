@@ -14,43 +14,37 @@ import {
 import { OrderService } from './order.service'
 import { GetAllOrderDto } from './dto/order.dto'
 import { ProductDto } from 'src/product/dto/product.dto'
+import { CurrentUser } from 'src/auth/decorators/user.decorator'
 
 @Controller('order')
 export class OrderController {
 	constructor(private readonly orderService: OrderService) {}
 
+	@Get(':id')
+	//@Auth()
+	async getByUser(userId:number) {
+		return this.orderService.getByUser(+userId)
+	}
+
+	@Get()
+	//@Auth()
+	async getAll() {
+		return this.orderService.getAll();
+	}
 	@UsePipes(new ValidationPipe())
 	@HttpCode(200)
 	//@Auth()
 	@Post()
-	async createProduct(@Body() dto: GetAllOrderDto) {
-		return this.orderService.create(dto)
+	async placeOrder(@CurrentUser('id') usderId:number, @Body() dto: GetAllOrderDto) {
+		return this.orderService.placeOrder(usderId,dto)
 	}
 
-	@UsePipes(new ValidationPipe())
-	@HttpCode(200)
-	@Put(':id')
-	//@Auth()
-	async updateProduct(@Param('id') id: string, @Body() dto: GetAllOrderDto) {
-		return this.orderService.update(+id, dto)
-	}
 
 	@HttpCode(200)
 	@Delete(':id')
 	//@Auth()
-	async deleteProduct(@Param('id') id: string) {
+	async deleteOrder(@Param('id') id: number) {
 		return this.orderService.delete(+id)
 	}
-
-	@Get(':id')
-	//@Auth()
-	async getProduct(@Param('id') id: string) {
-		return this.orderService.byId(+id)
-	}
-
-	@HttpCode(200)
-	@Get()
-	async getAll() {
-		return this.orderService.getAll()
-	}
+	
 }

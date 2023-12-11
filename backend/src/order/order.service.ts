@@ -3,28 +3,15 @@ import { PrismaService } from 'src/prisma.service';
 import { GetAllOrderDto } from './dto/order.dto';
 import { returnOrderInfoFullSet } from './return-order-info.object';
 import { error } from 'console';
+import { returnProductInfoObject } from 'src/product-info/return-product-info.object';
 
 @Injectable()
 export class OrderService {
   constructor(private prisma: PrismaService) {}
 
-  async create(dto: GetAllOrderDto) {
-	const { status, shipAdress, shipCity, shipCountry, shipPostalCode, shipRegion } = dto;
-  
-	return this.prisma.order.create({
-	  data: {
-		status,
-		shipAdress,
-		shipCity,
-		shipCountry,
-		shipPostalCode,
-		shipRegion
-	  }
-	});
-  }
   
   async update(id: number, dto: GetAllOrderDto) {
-	const { status, shipAdress, shipCity, shipCountry, shipPostalCode, shipRegion, user } = dto;
+	const { status, shipAdress, shipCity, shipCountry, shipPostalCode, shipRegion, userId } = dto;
   
 	return this.prisma.order.update({
 	  where: {
@@ -46,26 +33,47 @@ export class OrderService {
 		return this.prisma.order.delete({ where: { id } })
 	}
 
-	async  byId(id: number) {
-		const order = await this.prisma.order.findUnique({
+	async getAll(){
+			return this.prisma.order.findMany({
+				orderBy:{
+					createdAt:'desc'
+				},
+				include: {
+					items:{
+						include:{
+							productInfo:{
+								select: returnProductInfoObject
+							}
+						}
+					}
+				}
+			})
+	}
+
+	async getByUser(userId: number){
+		return this.prisma.order.findMany({
 			where: {
-				id
+				id:userId
 			},
 			select: returnOrderInfoFullSet
-		})
-		// Ensure that there's a closing curly brace here
 
-		if (!order) {
-			throw new error('Product not found')
-		}
-
-		return order
-	}
-
-	async getAll() {
-		return this.prisma.order.findMany({
-			select: returnOrderInfoFullSet
+			
 		})
 	}
-}
 
+	async placeOrder(user_id: number,dto: GetAllOrderDto) {
+		const { status, shipAdress, shipCity, shipCountry, shipPostalCode, shipRegion,userId} = dto;
+	  
+		return this.prisma.order.create({
+		  data: {
+			status,
+			shipAdress,
+			shipCity,
+			shipCountry,
+			shipPostalCode,
+			shipRegion,
+			userId: user_id
+		  }
+		});
+	  }
+	}

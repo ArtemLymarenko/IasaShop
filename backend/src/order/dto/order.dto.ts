@@ -31,5 +31,5 @@ export class GetAllOrderDto{
     orderDate:string;
     
     items: OrderItem[];
-    user: User;
+    userId: number;
 }

@@ -14,7 +14,7 @@ export const useProducts = () => {
 export const useProductById = (id: string) => {
 	const { data } = useQuery({
 		queryKey: ['products', id],
-		queryFn: () => productService.getById(id),
+		queryFn: () => productService.getById(+id),
 		select: ({ data }) => data
 	})
 
