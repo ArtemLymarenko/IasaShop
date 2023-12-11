@@ -11,6 +11,7 @@ import AdminPanelProducts from '../screens/admin-panel/products/AdminProducts'
 import AdminPanelCategories from '../screens/admin-panel/categories/AdminCategories'
 import AdminPanelOrders from '../screens/admin-panel/orders/AdminOrders'
 import Dashboard from '../screens/admin-panel/dashboard/Dashboard'
+import UserPage from '../screens/user-page/UserPage'
 import CheckoutPage from '../screens/checkout/CheckoutPage'
 
 const Router = () => {
