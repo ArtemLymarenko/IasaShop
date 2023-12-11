@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import styles from './AddProductForm.module.scss'
+import styles from './AddCateforyForm.module.scss'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import Field from '@/components/ui/input/Field'
 import categoryService from '@/components/services/category/category.service'
@@ -24,6 +24,7 @@ const AddCategoryForm: FC = () => {
 
 		if (!category) {
 			setErrorMessage('Something went wrong. Try again!')
+			return
 		}
 		reset()
 	}
