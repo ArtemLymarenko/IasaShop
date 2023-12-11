@@ -44,7 +44,7 @@ const AddCategoryForm: FC = () => {
 					{...formRegister('slug', {
 						required: 'Slug is required'
 					})}
-					placeholder='Price'
+					placeholder='Slug'
 					error={errors.slug?.message}
 				/>
 
