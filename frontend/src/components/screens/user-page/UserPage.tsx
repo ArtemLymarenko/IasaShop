@@ -1,44 +1,101 @@
-import { FC } from 'react'
-import Layout from '@/components/layout/Layout'
-import styles from './UserPage.module.scss'
-import Heading from '@/components/ui/heading/Heading'
-import { IOrder } from '@/types/order.interface'
-import { useOrdersAll } from '@/hooks/useOrders'
-import { useActions } from '@/hooks/useActions'
-import Button from '@/components/ui/button/Button'
+import { FC, useState, useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import Layout from '@/components/layout/Layout';
+import styles from './UserPage.module.scss';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import Button from '@/components/ui/button/Button';
+import Field from '@/components/ui/input/Field';
+import { IUser } from '@/types/user.interface';
+import userService from '@/components/services/user/user.service';
+import { useGetProfile } from '@/hooks/useGetProfile';
+import { useActions } from '@/hooks/useActions';
+import Heading from '@/components/ui/heading/Heading';
 
 const UserPage: FC<{ pageTitle: string }> = ({ pageTitle }) => {
-	const { orders, isLoading, isError, error } = useOrdersAll()
-	const { logout } = useActions()
-	if (isLoading) {
-		return <div>Loading...</div>
-	}
+  const queryClient = useQueryClient();
+  const userProfile = useGetProfile();
+  const { logout } = useActions()
+  const [errorMessage, setErrorMessage] = useState('');
+  const {
+    register: formRegister,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    setValue, 
+  } = useForm<IUser>({
+    mode: 'onChange',
+    defaultValues: userProfile,
+  });
 
-	if (isError && error) {
-		return <div>Error: {error.message}</div>
-	}
+  useEffect(() => {
+    setValue('firstName', userProfile?.firstName || '');
+    setValue('lastName', userProfile?.lastName || '');
+    setValue('phone', userProfile?.phone || '');
+    setValue('email', userProfile?.email || '');
+  }, [userProfile, setValue]);
 
-	return (
-		<Layout pageTitle={pageTitle}>
-			<div className={styles.userPage}>
-				<Heading>{pageTitle}</Heading>
-				{orders && orders.length > 0 ? (
-					orders.map((order: IOrder) => (
-						<div key={order.orderDate}>
-							<p>Order Date: {order.orderDate}</p>
-							<p>Order adress: {order.shipAdress}</p>
-							<p>Order city: {order.shipCity}</p>
-							<p>Order userId: {order.userId}</p>
-							{/* Display other order details as needed */}
-						</div>
-					))
-				) : (
-					<p>No orders available.</p>
-				)}
-				<Button onClick={logout}>Logout</Button>
-			</div>
-		</Layout>
-	)
-}
+  const onSubmit: SubmitHandler<IUser> = async (data) => {
+    console.log('Submitting data:', data);
+    const user = await userService.updateProfile({
+      email: data.email,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      phone: data.phone,
+    });
 
-export default UserPage
+    if (!user) {
+      setErrorMessage('Something went wrong. Try again!');
+      return;
+    }
+
+
+    queryClient.invalidateQueries('profile data');
+
+    reset();
+  };
+
+  return (
+    <Layout pageTitle={pageTitle}>
+      <div className='userInfo'>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+		<Field
+			  {...formRegister('firstName', {
+				required: 'First name is required',
+			  })}
+			  placeholder='First Name'
+			  error={errors.firstName?.message}
+			/>
+  
+			<Field
+			  {...formRegister('lastName', {
+				required: 'Last name is required',
+			  })}
+			  placeholder='Last Name'
+			  error={errors.lastName?.message}
+			/>
+  
+			<Field
+			  {...formRegister('phone', {
+				required: 'Phone number is required',
+			  })}
+			  placeholder='Phone'
+			  error={errors.phone?.message}
+			/>
+  
+			<Field
+			  {...formRegister('email', {
+				required: 'Email is required',
+			  })}
+			  placeholder='Email'
+			  error={errors.email?.message}
+			/>
+
+          <Button type='submit'>Save</Button>
+		  <Button onClick={logout}>Logout</Button>
+        </form>
+      </div>
+    </Layout>
+  );
+};
+
+export default UserPage;

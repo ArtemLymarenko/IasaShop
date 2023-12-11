@@ -31,6 +31,8 @@ export class UserController {
 	@Auth()
 	@Put('profile')
 	async updateProfile(@CurrentUser('id') id: number, @Body() userDto: UserDto) {
+		console.log('Received update request for user ID:', id);
+		console.log('Received data:', userDto);
 		return this.userService.updateProfile(id, userDto)
 	}
 }
