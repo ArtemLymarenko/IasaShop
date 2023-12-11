@@ -33,7 +33,6 @@ model Product{
   updatedAt DateTime @updatedAt @map("updated_at")
 
   productName String @unique @map("product_name")
-  slug String @unique
   description String
   price Decimal
   images String[]

@@ -77,20 +77,6 @@ export class ProductService {
 
 		return product
 	}
-	async bySlug(slug: string) {
-		const product = await this.prisma.product.findUnique({
-			where: {
-				slug
-			},
-			select: productReturnObjectFullSet
-		})
-
-		if (!product) {
-			throw new NotFoundException('Product not found')
-		}
-
-		return product
-	}
 	async byCategorySlug(category_slug: string) {
 		const product = await this.prisma.product.findMany({
 			where: {
@@ -129,17 +115,23 @@ export class ProductService {
 		})
 		return products
 	}
-	async create() {
-		const product = await this.prisma.product.create({
-			data: {
-				description: '',
-				productName: '',
-				price: 0,
-				slug: ''
-			}
-		})
-		return product.id
-	}
+	async create(dto: ProductDto) {
+		const { productName, price, description, images, categoryId } = dto;
+		return this.prisma.product.create({
+		  data: {
+			productName,
+			price,
+			description,
+			images,
+			category: {
+			  connect: {
+				id: categoryId,
+			  },
+			},
+		  },
+		});
+	  }
+	  
 	async update(id: number, dto: ProductDto) {
 		const { description, images, price, productName, categoryId } = dto
 		return this.prisma.product.update({
@@ -151,7 +143,6 @@ export class ProductService {
 				images,
 				price,
 				productName,
-				slug: faker.helpers.slugify(productName).toLowerCase(),
 				category: {
 					connect: {
 						id: categoryId

@@ -4,7 +4,6 @@ import { ArrayMinSize, IsNumber, IsOptional, IsString } from 'class-validator'
 export class ProductDto implements Prisma.ProductUpdateInput {
 	@IsString()
 	productName: string
-
 	@IsNumber()
 	price: number
 

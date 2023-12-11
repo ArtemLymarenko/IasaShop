@@ -34,13 +34,6 @@ export class ProductController {
 		return this.productService.getSimilar(+id)
 	}
 
-	//?
-	@HttpCode(200)
-	@Get('by-slug/:slug')
-	async getProductBySlug(@Param('slug') slug: string) {
-		return this.productService.bySlug(slug)
-	}
-
 	//Needed
 	@HttpCode(200)
 	@Get('by-category/:categorySlug')
@@ -52,8 +45,8 @@ export class ProductController {
 	@HttpCode(200)
 	//@Auth()
 	@Post()
-	async createProduct() {
-		return this.productService.create()
+	async createProduct(@Body() dto: ProductDto) {
+		return this.productService.create(dto)
 	}
 
 	@UsePipes(new ValidationPipe())

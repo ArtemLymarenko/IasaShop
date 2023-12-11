@@ -9,7 +9,6 @@ export const productReturnObject: Prisma.ProductSelect = {
 	productName: true,
 	price: true,
 	createdAt: true,
-	slug: true
 }
 
 export const productReturnObjectFullSet: Prisma.ProductSelect = {

@@ -59,11 +59,12 @@ export class CategoryService {
 			}
 		})
 	}
-	async create() {
+	async create(dto: CategoryDto) {
+		const { categoryName } = dto
 		return this.prisma.category.create({
 			data: {
-				categoryName: '',
-				slug: ''
+				categoryName,
+				slug: faker.helpers.slugify(dto.categoryName).toLowerCase()
 			}
 		})
 	}
