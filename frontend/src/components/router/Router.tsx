@@ -91,6 +91,12 @@ const Router = () => {
 						<AuthProvider role={{ isUser: true }} children={<CheckoutPage />} />
 					}
 				/>
+				<Route
+					path='/my-cabinet'
+					element={
+						<AuthProvider role={{ isUser: true }} children={<UserPage pageTitle='UserPage'/>} />
+					}
+				/>
 				<Route path='*' element={<NotFound />} />
 			</Routes>
 		</BrowserRouter>

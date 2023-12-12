@@ -3,6 +3,7 @@ import { faker } from '@faker-js/faker'
 import { Category, PrismaClient, Product, User } from '@prisma/client'
 import * as dotenv from 'dotenv'
 import { getRandomNumber } from '../src/utils/random-number'
+import { getRandomImages, imagesByCategory } from '../src/utils/random-image'
 
 dotenv.config()
 const prisma = new PrismaClient()
@@ -23,42 +24,51 @@ const createCategories = async () => {
 	}
 	console.log(`Created ${categories.length} categories`)
 }
-
 const createProducts = async (quantity: number) => {
-	const products: Product[] = []
-	const allCategoryIds = await prisma.category.findMany({
-		select: {
-			id: true
-		}
-	})
-	const categoryIds = allCategoryIds.map(category => category.id)
+	const products: Product[] = [];
+	const allCategories = await prisma.category.findMany({
+	  select: {
+		id: true,
+		categoryName: true,
+	  },
+	});
+  
 	for (let i = 0; i < quantity; i++) {
-		const productName =
-			faker.commerce.productName() +
-			Math.floor(Math.random() * 5 + 1).toString()
-
-		const randomCategoryId =
-			categoryIds[Math.floor(Math.random() * categoryIds.length)]
-
-		const product = await prisma.product.create({
-			data: {
-				productName: productName,
-				description: faker.commerce.productDescription(),
-				price: +faker.commerce.price({ min: 100, max: 150, dec: 2 }),
-				images: Array.from({ length: getRandomNumber(2, 6) }).map(() =>
-					faker.image.url()
-				),
-				category: {
-					connect: {
-						id: randomCategoryId
-					}
-				}
-			}
-		})
-		products.push(product)
+	  const productName =
+		faker.commerce.productName() +
+		Math.floor(Math.random() * 5 + 1).toString();
+  
+	  const randomCategory = allCategories[Math.floor(Math.random() * allCategories.length)];
+  
+	  const categoryImages = imagesByCategory[randomCategory.categoryName];
+  
+	  if (!categoryImages) {
+		console.error(`Images not defined for category: ${randomCategory.categoryName}`);
+		return;
+	  }
+  
+	  const numberOfImages = getRandomNumber(2, 6);
+	  const selectedImages = getRandomImages(categoryImages, numberOfImages);
+  
+	  const product = await prisma.product.create({
+		data: {
+		  productName: productName,
+		  description: faker.commerce.productDescription(),
+		  price: +faker.commerce.price({ min: 500, max: 1000, dec: 2 }),
+		  images: selectedImages,
+		  category: {
+			connect: {
+			  id: randomCategory.id,
+			},
+		  },
+		},
+	  });
+	  products.push(product);
 	}
-	console.log(`Created ${products.length} products`)
-}
+	console.log(`Created ${products.length} products`);
+  };
+
+
 
 const createUserAccounts = async (quantity: number) => {
 	const users: User[] = []
@@ -117,8 +127,8 @@ const createProductInfo = async (quantity: number) => {
 async function main() {
 	console.log('Start seeding...')
 	//await createCategories()
-	//await createProducts(10)
-	//await createUserAccounts(5)
+	//await createProducts(25)
+	//await createUserAccounts(54)
 	await createProductInfo(3)
 }
 
