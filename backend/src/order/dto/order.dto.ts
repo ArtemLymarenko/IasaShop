@@ -1,5 +1,6 @@
-import { OrderItem, User } from "@prisma/client"
-import { IsString } from "class-validator"
+import { OrderItem } from "@prisma/client";
+import { IsString } from "class-validator";
+import { IOrderItem } from "src/order-item/order-item-interface.";
 
 export enum EnumOrderStatus{
     PENDING = 'PENDING',
@@ -30,6 +31,6 @@ export class GetAllOrderDto{
     @IsString()
     orderDate:string;
     
-    items?: OrderItem[];
+    items?: IOrderItem[];
     userId?: number;
 }

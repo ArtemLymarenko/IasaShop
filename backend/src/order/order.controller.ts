@@ -22,8 +22,8 @@ export class OrderController {
 
 	@Get(':id')
 	//@Auth()
-	async getByUser(userId:number) {
-		return this.orderService.getByUser(+userId)
+	async getByUser(@CurrentUser('id') userId:number) {
+		return this.orderService.getByUser(userId)
 	}
 
 	@Get()
