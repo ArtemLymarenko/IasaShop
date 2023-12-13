@@ -63,9 +63,9 @@ export class OrderService {
 
 
 	async placeOrder(dto: GetAllOrderDto) {
-		const { status, shipAdress, shipCity, shipCountry, shipPostalCode, shipRegion, orderDate, items } = dto;
+		const { userId,status, shipAdress, shipCity, shipCountry, shipPostalCode, shipRegion, orderDate, items } = dto;
 	  
-		// Step 1: Place the order without orderItems
+		// Create the order
 		const createdOrder = await this.prisma.order.create({
 		  data: {
 			status,
@@ -75,45 +75,33 @@ export class OrderService {
 			shipPostalCode,
 			shipRegion,
 			orderDate,
+			userId
+		  },
+		  include: {
+			items: true, // Include the associated items in the response
 		  },
 		});
 	  
-		// Step 2: Retrieve the orderId
+		// Extract the order ID from the created order
 		const orderId = createdOrder.id;
 	  
-		// Step 3: Fetch orderItems where orderId is null
-		if (items && items.length > 0) {
-		  const orderItemsToUpdate = await this.prisma.orderItem.findMany({
-			where: {
-			  orderId: 99,
-			  id: {
-				in: items.map((item) => item.id),
-			  },
-			},
-		  });
+		// Create the associated OrderItems with the orderId
+		const createdOrderItems = await this.prisma.orderItem.createMany({
+		  data: items.map(item => ({
+			price: item.price,
+			quantity: item.quantity,
+			productInfoId: item.productInfoId,
+			orderId,
+		  })),
+		});
 	  
-		  // Step 4: Update orderItems with the orderId
-		  if (orderItemsToUpdate && orderItemsToUpdate.length > 0) {
-			await this.prisma.orderItem.updateMany({
-			  where: {
-				id: {
-				  in: orderItemsToUpdate.map((item) => item.id),
-				},
-			  },
-			  data: {
-				orderId,
-			  },
-			});
-		  }
-		}
+		// Return the created order with associated items
+		return {
+		  order: createdOrder,
+		  items: createdOrderItems,
+		};
+	  }  
 	  
-		// Now you can return the created order
-		return createdOrder;
-	  }
-	  
-	  
-	  
-  
-  // Other methods remain unchanged
+	
 }
 	

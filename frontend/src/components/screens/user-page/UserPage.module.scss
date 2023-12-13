@@ -3,7 +3,7 @@
 	display: flex;
 	flex-direction: row;
 	margin-top: 0px;
-	margin:auto;
+	margin: auto;
 	align-items: center;
 	justify-content: center;
 	gap: 60px;
@@ -18,12 +18,11 @@
 	.form {
 		width: 100%;
 		max-width: 600px;
-		> Button{
+		> Button {
 			margin-top: 30px;
 		}
 	}
 }
-
 
 .leftSection {
 	width: 400px; /* Fixed width for the left section */
@@ -33,27 +32,44 @@
 	flex-direction: column;
 	gap: 20px;
 	align-items: center;
-	.textBlock{
-		display:flex;
+
+	.logButton {
+		height: 60px;
+		font-size: 18px;
+		background: $black;
+		color: $white;
+		letter-spacing: $letter-spacing;
+		font-weight: 600;
+		text-align: center;
+		border-radius: 20px;
+		width: 300px;
+
+		&:hover {
+			background: $white;
+			color: $black;
+			border: 1px solid $black;
+			transition: all 0.4s ease;
+		}
+	}
+
+	.textBlock {
+		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
 		background-color: $black;
 		border-radius: 30px;
 		width: 300px;
 		height: 150px;
-		> div{
-
+		> div {
 			margin-block-start: 30px;
 			margin-inline-start: 30px;
 			color: $white;
 			font-size: 18px;
-            font-weight: 600;
+			font-weight: 600;
 			&:hover {
 				filter: brightness(50%);
 				transition: all 0.4s ease;
 			}
-		}	
-
+		}
 	}
-
 }

@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import { FC, useState, useEffect } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import Layout from '@/components/layout/Layout'
 import styles from './UserPage.module.scss'
@@ -10,10 +10,12 @@ import { useGetProfile } from '@/hooks/useGetProfile'
 import { useActions } from '@/hooks/useActions'
 import Heading from '@/components/ui/heading/Heading'
 import Button from '@/components/ui/button/Button'
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const LeftSection: FC<{ onButtonClick: (button: string) => void }> = ({
 	onButtonClick
 }) => {
+  const { logout } = useActions()
 	return (
 		<div className={styles.leftSection}>
 			<div className={styles.textBlock}>
@@ -30,6 +32,7 @@ const LeftSection: FC<{ onButtonClick: (button: string) => void }> = ({
 					My Orders
 				</div>
 			</div>
+      <button className={styles.logButton} onClick={logout}>Logout</button>
 		</div>
 	)
 }
@@ -37,8 +40,8 @@ const LeftSection: FC<{ onButtonClick: (button: string) => void }> = ({
 const UserPage: FC<{ pageTitle: string }> = ({ pageTitle }) => {
 	const queryClient = useQueryClient()
 	const userProfile = useGetProfile()
-	const { logout } = useActions()
-	const [errorMessage, setErrorMessage] = useState('')
+
+	const [,setErrorMessage] = useState('')
 	const [selectedButton, setSelectedButton] = useState<string>('account') // Default to 'account'
 
 	const {
