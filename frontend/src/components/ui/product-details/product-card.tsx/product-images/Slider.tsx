@@ -1,7 +1,6 @@
 import { FC, useState } from 'react'
 import styles from '../ProductCard.module.scss'
 import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons'
-import cn from 'clsx'
 
 const Slider: FC<{ images: string[] }> = ({ images }) => {
 	const [activeId, setActiveId] = useState(0)
@@ -41,9 +40,10 @@ const Slider: FC<{ images: string[] }> = ({ images }) => {
 					))}
 				</div>
 				<div className={styles.indicators}>
-					{images.map((image, index) => {
+					{images.map((_, index) => {
 						return (
 							<button
+								key={index}
 								className={styles['indicator-buttons']}
 								onClick={() => {
 									updateIndex(index)

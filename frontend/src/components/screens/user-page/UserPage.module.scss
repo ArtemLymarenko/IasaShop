@@ -25,7 +25,7 @@
 }
 
 .leftSection {
-	width: 400px; /* Fixed width for the left section */
+	width: 400px;
 	min-height: 600px;
 	padding: 20px;
 	display: flex;
@@ -63,6 +63,7 @@
 		> div {
 			margin-block-start: 30px;
 			margin-inline-start: 30px;
+			cursor: pointer;
 			color: $white;
 			font-size: 18px;
 			font-weight: 600;

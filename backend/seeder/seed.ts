@@ -25,50 +25,51 @@ const createCategories = async () => {
 	console.log(`Created ${categories.length} categories`)
 }
 const createProducts = async (quantity: number) => {
-	const products: Product[] = [];
+	const products: Product[] = []
 	const allCategories = await prisma.category.findMany({
-	  select: {
-		id: true,
-		categoryName: true,
-	  },
-	});
-  
+		select: {
+			id: true,
+			categoryName: true
+		}
+	})
+
 	for (let i = 0; i < quantity; i++) {
-	  const productName =
-		faker.commerce.productName() +
-		Math.floor(Math.random() * 5 + 1).toString();
-  
-	  const randomCategory = allCategories[Math.floor(Math.random() * allCategories.length)];
-  
-	  const categoryImages = imagesByCategory[randomCategory.categoryName];
-  
-	  if (!categoryImages) {
-		console.error(`Images not defined for category: ${randomCategory.categoryName}`);
-		return;
-	  }
-  
-	  const numberOfImages = getRandomNumber(2, 6);
-	  const selectedImages = getRandomImages(categoryImages, numberOfImages);
-  
-	  const product = await prisma.product.create({
-		data: {
-		  productName: productName,
-		  description: faker.commerce.productDescription(),
-		  price: +faker.commerce.price({ min: 500, max: 1000, dec: 2 }),
-		  images: selectedImages,
-		  category: {
-			connect: {
-			  id: randomCategory.id,
-			},
-		  },
-		},
-	  });
-	  products.push(product);
+		const productName =
+			faker.commerce.productName() +
+			Math.floor(Math.random() * 5 + 1).toString()
+
+		const randomCategory =
+			allCategories[Math.floor(Math.random() * allCategories.length)]
+
+		const categoryImages = imagesByCategory[randomCategory.categoryName]
+
+		if (!categoryImages) {
+			console.error(
+				`Images not defined for category: ${randomCategory.categoryName}`
+			)
+			return
+		}
+
+		const numberOfImages = getRandomNumber(2, 6)
+		const selectedImages = getRandomImages(categoryImages, numberOfImages)
+
+		const product = await prisma.product.create({
+			data: {
+				productName: productName,
+				description: faker.commerce.productDescription(),
+				price: +faker.commerce.price({ min: 500, max: 1000, dec: 2 }),
+				images: selectedImages,
+				category: {
+					connect: {
+						id: randomCategory.id
+					}
+				}
+			}
+		})
+		products.push(product)
 	}
-	console.log(`Created ${products.length} products`);
-  };
-
-
+	console.log(`Created ${products.length} products`)
+}
 
 const createUserAccounts = async (quantity: number) => {
 	const users: User[] = []
@@ -91,8 +92,6 @@ const createUserAccounts = async (quantity: number) => {
 
 	console.log(`Created ${users.length} user accounts`)
 }
-
-
 
 const createProductInfo = async (quantity: number) => {
 	try {
@@ -128,7 +127,7 @@ async function main() {
 	console.log('Start seeding...')
 	//await createCategories()
 	//await createProducts(25)
-	//await createUserAccounts(54)
+	//await createUserAccounts(20)
 	await createProductInfo(3)
 }
 

@@ -8,6 +8,7 @@ import AddProductForm from './add-product/AddProductForm'
 
 const AdminProducts: FC = () => {
 	const { data, mutate } = useAdminProducts()
+
 	const header: string[] = [
 		'Product name',
 		'Created At',

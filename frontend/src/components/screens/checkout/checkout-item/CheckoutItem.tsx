@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { IProduct } from '@/types/product.interface'
 import styles from './CheckoutItem.module.scss'
 import { formatToCurrency } from '@/utils/format-to-currency'
-import { IProductInfo } from '@/types/product-info.interface'
+import { IProductInfo } from '@/types/productInfo.interface'
 
 interface CheckoutItemProps {
 	product: IProduct

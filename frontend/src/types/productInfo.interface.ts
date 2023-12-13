@@ -1,6 +1,6 @@
 export interface IProductInfo {
-	id: number
-	productId: number
-	sizeName: string
-	amountStorage: number
+    id: number,
+    sizeName: string;
+    productId: number;
+    amountStorage: number
 }

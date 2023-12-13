@@ -1,5 +1,5 @@
 import { instance } from '../../api/api.interceptor'
-import { IProductInfo } from '@/types/product-info.interface'
+import { IProductInfo } from '@/types/productInfo.interface'
 import { IProductInfoDto } from './product-info.dto.interface'
 
 class ProductInfoService {

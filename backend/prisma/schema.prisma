@@ -63,7 +63,6 @@ model ProductInfo {
   orderItems OrderItem[]
 }
 
-
 model OrderItem{
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now()) @map("created_at")
@@ -78,6 +77,7 @@ model OrderItem{
   productInfo      ProductInfo? @relation(fields: [productInfoId], references: [id])
   productInfoId    Int? @map("product_info_id")
 }
+
 model Order{
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now()) @map("created_at")

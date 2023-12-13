@@ -56,8 +56,7 @@ export class ProductService {
 			: {}
 
 		const products = await this.prisma.product.findMany({
-			where: prismaSearchTermFilter,
-			orderBy: prismaSort
+			select: productReturnObjectFullSet
 		})
 
 		return products
