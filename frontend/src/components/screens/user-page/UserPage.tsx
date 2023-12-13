@@ -10,12 +10,12 @@ import { useGetProfile } from '@/hooks/useGetProfile'
 import { useActions } from '@/hooks/useActions'
 import Heading from '@/components/ui/heading/Heading'
 import Button from '@/components/ui/button/Button'
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom'
 
 const LeftSection: FC<{ onButtonClick: (button: string) => void }> = ({
 	onButtonClick
 }) => {
-  const { logout } = useActions()
+	const { logout } = useActions()
 	return (
 		<div className={styles.leftSection}>
 			<div className={styles.textBlock}>
@@ -32,7 +32,9 @@ const LeftSection: FC<{ onButtonClick: (button: string) => void }> = ({
 					My Orders
 				</div>
 			</div>
-      <button className={styles.logButton} onClick={logout}>Logout</button>
+			<button className={styles.logButton} onClick={logout}>
+				Logout
+			</button>
 		</div>
 	)
 }
@@ -41,7 +43,7 @@ const UserPage: FC<{ pageTitle: string }> = ({ pageTitle }) => {
 	const queryClient = useQueryClient()
 	const userProfile = useGetProfile()
 
-	const [,setErrorMessage] = useState('')
+	const [, setErrorMessage] = useState('')
 	const [selectedButton, setSelectedButton] = useState<string>('account') // Default to 'account'
 
 	const {
@@ -119,7 +121,9 @@ const UserPage: FC<{ pageTitle: string }> = ({ pageTitle }) => {
 								placeholder='Email'
 								error={errors.email?.message}
 							/>
-              <Button type="submit" className={styles.submitButton}>Save</Button>
+							<Button type='submit' className={styles.submitButton}>
+								Save
+							</Button>
 						</form>
 					</>
 				)
