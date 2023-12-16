@@ -15,7 +15,7 @@ const AddToCartButton: FC<IAddToCart> = ({ product, selectedSize }) => {
 	return (
 		<div>
 			<Button
-				onClick={() => addToCart({ product, quantity: 1, size: selectedSize })}
+				onClick={() => addToCart({ product, quantity: 1, size: selectedSize})}
 				bg='#000000'
 				color='#ffffff'
 				borderRadius='50px'
