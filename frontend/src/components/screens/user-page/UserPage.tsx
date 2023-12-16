@@ -10,7 +10,8 @@ import { useGetProfile } from '@/hooks/useGetProfile'
 import { useActions } from '@/hooks/useActions'
 import Heading from '@/components/ui/heading/Heading'
 import Button from '@/components/ui/button/Button'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useOrderByUserId } from '@/hooks/useOrders'
+import OrderInfo from './user-orders/UserOrders'
 
 const LeftSection: FC<{ onButtonClick: (button: string) => void }> = ({
 	onButtonClick
@@ -42,7 +43,7 @@ const LeftSection: FC<{ onButtonClick: (button: string) => void }> = ({
 const UserPage: FC<{ pageTitle: string }> = ({ pageTitle }) => {
 	const queryClient = useQueryClient()
 	const userProfile = useGetProfile()
-
+	const data = useOrderByUserId(userProfile?.id || 0)
 	const [, setErrorMessage] = useState('')
 	const [selectedButton, setSelectedButton] = useState<string>('account') // Default to 'account'
 
@@ -131,6 +132,12 @@ const UserPage: FC<{ pageTitle: string }> = ({ pageTitle }) => {
 				return (
 					<>
 						<Heading>My Orders</Heading>
+						<div className={styles.orderHeader}>
+							<p>Order id</p>
+							<p>Order date</p>
+							<p>Order status</p>
+						</div>
+						<OrderInfo data={data} />
 					</>
 				)
 			default:
