@@ -1,12 +1,21 @@
-import { useTypedSelector } from './useTypedSelector'
+
+import { useTypedSelector } from './useTypedSelector';
+import { useDispatch } from 'react-redux';
+import { cartSlice } from '@/store/cart/cart.slice';
 
 export const useCart = () => {
-	const cart = useTypedSelector(state => state.cart.items)
+  const cart = useTypedSelector((state) => state.cart.items);
+  const dispatch = useDispatch();
 
-	const totalSum = cart.reduce(
-		(acc, item) => (acc += item.product.price * item.quantity),
-		0
-	)
+  const totalSum = cart.reduce(
+    (acc, item) => (acc += item.product.price * item.quantity),
+    0
+  );
 
-	return { cart, totalSum }
-}
+  const clearCart = () => {
+    dispatch(cartSlice.actions.clearCart());
+  };
+
+  return { cart, totalSum, clearCart };
+};
+

@@ -35,6 +35,9 @@ export const cartSlice = createSlice({
 				if (type === 'plus') item.quantity++
 				else if (type === 'minus') item.quantity--
 			}
-		}
+		},
+		clearCart: (state) => {
+			state.items = [];
+		  }
 	}
 })
