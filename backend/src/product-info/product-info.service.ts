@@ -29,6 +29,28 @@ export class ProductInfoService {
 			}
 		})
 	}
+	async updateProductQuantity(id: number, quantity: number) {
+		const productInfo = await this.prisma.productInfo.findUnique({
+		  where: {
+			id,
+		  },
+		});
+	
+		if (!productInfo) {
+		  throw new Error(`ProductInfo with id ${id} not found`);
+		}
+	
+		const newAmountStorage = Math.max(0, productInfo.amountStorage - quantity);
+	
+		return this.prisma.productInfo.update({
+		  where: {
+			id,
+		  },
+		  data: {
+			amountStorage: newAmountStorage,
+		  },
+		});
+	  }
 
 	async delete(id: number) {
 		return this.prisma.productInfo.delete({ where: { id } })

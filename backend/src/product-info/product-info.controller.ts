@@ -37,6 +37,13 @@ export class ProductInfoController {
 		return this.productInfoService.update(+id, dto)
 	}
 
+	@UsePipes(new ValidationPipe())
+	@HttpCode(200)
+	@Put('by-id-update/:id')
+	async updateProductQuantity(@Param('id') id: number,@Body() body: { quantity: number }){
+		return this.productInfoService.updateProductQuantity(+id,body.quantity);
+	}
+
 	@HttpCode(200)
 	@Delete(':id')
 	//@Auth()
