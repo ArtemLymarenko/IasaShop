@@ -9,11 +9,18 @@ class ProductInfoService {
 			method: 'GET'
 		})
 	}
-	async create(productInfDto: IProductInfoDto) {
+	async create(productInfoDto: IProductInfoDto) {
 		return instance<IProductInfo>({
 			url: `/product-info`,
 			method: 'POST',
-			data: productInfDto
+			data: productInfoDto
+		})
+	}
+	async updateProductQuantity(id: number, quantity: number) {
+		return instance<IProductInfo>({
+			url: `/product-info/by-id-update/${id}`,
+			method: 'PUT',
+			data: { quantity }
 		})
 	}
 }
