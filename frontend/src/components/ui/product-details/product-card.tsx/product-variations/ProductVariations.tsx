@@ -27,9 +27,9 @@ const ProductVariations: FC<IProductVariations> = ({
 						if (sizeItem.amountStorage !== 0) {
 							return (
 								<button
-									key={sizeItem.sizeName}
+									key={sizeItem.id}
 									className={cn(styles.product, {
-										[styles.active]: selectedSize.sizeName === sizeItem.sizeName
+										[styles.active]: selectedSize.id === sizeItem.id
 									})}
 									onClick={() => setSelectedSize(sizeItem)}
 								>

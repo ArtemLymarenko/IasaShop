@@ -41,6 +41,7 @@ const CartActions: FC<{ item: ICartItem }> = ({ item }) => {
 				<Button
 					{...inc}
 					onClick={() => changeQuantity({ id: item.id, type: 'plus' })}
+					isDisabled={quantity === item.size.amountStorage}
 				>
 					<AddIcon fontSize={10} />
 				</Button>

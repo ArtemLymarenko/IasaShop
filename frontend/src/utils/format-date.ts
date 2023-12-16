@@ -8,7 +8,8 @@ export const formatDate = (dateString: string) => {
 		year: 'numeric',
 		month: 'long',
 		day: 'numeric',
-		timeZoneName: 'short'
+		hour: '2-digit',
+		minute: '2-digit'
 	} as Intl.DateTimeFormatOptions
 
 	return date.toLocaleString('en-US', options)

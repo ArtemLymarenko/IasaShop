@@ -12,7 +12,7 @@ export const useAdminCategories = () => {
 				return {
 					id: category.id,
 					viewUrl: `/categories/${category.slug}`,
-					editUrl: getAdminUrl(`/products/edit/${category.slug}`),
+					editUrl: getAdminUrl(`/categories/edit/${category.slug}`),
 					items: [category.categoryName, '/' + category.slug]
 				}
 			})

@@ -10,7 +10,6 @@ import { useGetProfile } from '@/hooks/useGetProfile'
 import { useActions } from '@/hooks/useActions'
 import Heading from '@/components/ui/heading/Heading'
 import Button from '@/components/ui/button/Button'
-import { Navigate, useNavigate } from 'react-router-dom'
 
 const LeftSection: FC<{ onButtonClick: (button: string) => void }> = ({
 	onButtonClick
@@ -78,7 +77,7 @@ const UserPage: FC<{ pageTitle: string }> = ({ pageTitle }) => {
 			return
 		}
 
-		queryClient.invalidateQueries('profile data')
+		queryClient.invalidateQueries({ queryKey: ['profile data'] })
 
 		reset()
 	}
