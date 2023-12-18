@@ -3,7 +3,7 @@ import { ICartItem } from './cart.interface'
 export enum EnumOrderStatus {
 	PENDING = 'PENDING',
 	PAYED = 'PAYED ',
-	SHIPPED = 'SHIPPED',
+	AWAITING = 'AWAITING',
 	DELIVERED = 'DELIVERED'
 }
 export interface IOrder {
@@ -15,6 +15,7 @@ export interface IOrder {
 	shipRegion: string
 	shipPostalCode: string
 	shipAdress: string
+	totalSum: number
 	items: ICartItem[]
 	userId: number
 }
