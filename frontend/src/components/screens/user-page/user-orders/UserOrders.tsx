@@ -7,9 +7,9 @@ interface OrderInfoProps {
 	data?: IOrder[]; // Make data optional
   }
   
-  const OrderInfo: React.FC<OrderInfoProps> = ({ data }) => {
+  const OrderInfo: React.FC<OrderInfoProps> = ({ data}) => {
 	return (
-	  <div className={styles.orderInfo}>
+		<div className={styles.orderInfo}>
 		{data &&
 		  data.map(order => (
 			<div key={order.id}>

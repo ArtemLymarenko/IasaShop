@@ -4,25 +4,26 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-  
+	overflow-y: auto;
+	max-height: 600px;
 	> div {
-	  display: flex;
-	  flex-direction: row;
-	  align-items: flex-start;
-	  gap: 150px;
-	  background-color: #f0f0f0;
-	  padding: 10px;
-	  margin-bottom: 10px;
-	  border-radius: 10px;
-	  &:hover {
-		background-color: #e0e0e0;
-	  }
-  
-	  > p {
-		font-size: 18px;
-		font-weight: 400;
-		color: $black;
-	  }
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+
+		gap: 150px;
+		background-color: #f0f0f0;
+		padding: 10px;
+		margin-bottom: 10px;
+		border-radius: 10px;
+		&:hover {
+			background-color: #e0e0e0;
+		}
+
+		> p {
+			font-size: 18px;
+			font-weight: 400;
+			color: $black;
+		}
 	}
-  }
-  
+}

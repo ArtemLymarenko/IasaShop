@@ -13,6 +13,7 @@ import Button from '@/components/ui/button/Button'
 import { useOrderByUserId } from '@/hooks/useOrders'
 import OrderInfo from './user-orders/UserOrders'
 
+
 const LeftSection: FC<{ onButtonClick: (button: string) => void }> = ({
 	onButtonClick
 }) => {
@@ -79,7 +80,7 @@ const UserPage: FC<{ pageTitle: string }> = ({ pageTitle }) => {
 			return
 		}
 
-		queryClient.invalidateQueries('profile data')
+		queryClient.invalidateQueries({queryKey: ['getProfile']})
 
 		reset()
 	}
@@ -137,7 +138,7 @@ const UserPage: FC<{ pageTitle: string }> = ({ pageTitle }) => {
 							<p>Order date</p>
 							<p>Order status</p>
 						</div>
-						<OrderInfo data={data} />
+						<OrderInfo data={data}/>
 					</>
 				)
 			default:
