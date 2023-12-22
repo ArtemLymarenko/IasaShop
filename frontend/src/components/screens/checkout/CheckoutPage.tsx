@@ -14,7 +14,7 @@ import { EnumOrderStatus } from '@/types/order.interface'
 import { PlaceOrderDto } from './placeOrder.dto'
 import orderService from '@/components/services/order/order.service'
 import { useGetProfile } from '@/hooks/useGetProfile'
-import React from 'react'
+import { Fragment } from 'react'
 import productInfoService from '@/components/services/product-info/product-info.service'
 
 const CheckoutPage: FC = () => {
@@ -30,6 +30,7 @@ const CheckoutPage: FC = () => {
 
 	const navigate = useNavigate()
 	const handlePlaceOrder = async () => {
+		console.log('Click')
 		const modifiedItems = cart.map(cartItem => ({
 			...cartItem,
 			size: {
@@ -81,18 +82,24 @@ const CheckoutPage: FC = () => {
 						<p>Your order</p>
 						{cart &&
 							cart.map(cartItem => (
-								<React.Fragment key={cartItem.product.id}>
+								<Fragment key={cartItem.product.id}>
 									<CheckoutItem
 										product={cartItem.product}
 										sizeInfo={cartItem.size}
 										quantity={cartItem.quantity}
 									/>
-								</React.Fragment>
+								</Fragment>
 							))}
 						<div className={styles.price}>
 							Total: {formatToCurrency(totalSum)}
 						</div>
-						<Button onClick={handlePlaceOrder} className={styles.placeOrderBtn}>
+						<Button
+							onClick={handlePlaceOrder}
+							className={styles.placeOrderBtn}
+							disabled={Object.values(deliveryInfo).every(
+								field => field.length === 0
+							)}
+						>
 							Place Order
 						</Button>
 					</div>

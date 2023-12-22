@@ -65,7 +65,13 @@ const Cart: FC = () => {
 								color: '#000000',
 								border: '1px solid black'
 							}}
-							onClick={() => navigate('/checkout')}
+							onClick={() => {
+								if (cart.length === 0) {
+									navigate('/')
+								} else {
+									navigate('/checkout')
+								}
+							}}
 						>
 							Checkout
 						</Button>
