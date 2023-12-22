@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useState } from 'react'
+import { Dispatch, FC, SetStateAction} from 'react'
 import { IProduct } from '@/types/product.interface'
 import AddToCartButton from './add-to-cart-button/AddToCartButton'
 import styles from './ProductVariations.module.scss'

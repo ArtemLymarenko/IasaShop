@@ -4,6 +4,7 @@ import { GetAllOrderDto } from './dto/order.dto';
 import { returnOrderInfoFullSet } from './return-order-info.object';
 import { error } from 'console';
 import { returnProductInfoObject } from 'src/product-info/return-product-info.object';
+import { PlaceOrderDto } from './dto/place-order.dto';
 
 @Injectable()
 export class OrderService {
@@ -27,7 +28,12 @@ export class OrderService {
 	  }
 	});
   }
-  
+  async updateOrderStatus(id: number, newStatus: string) {
+	return this.prisma.order.update({
+	  where: { id },
+	  data: { status: newStatus },
+	});
+  }
 
 	async delete(id: number) {
 		return this.prisma.order.delete({ where: { id } })
@@ -36,72 +42,66 @@ export class OrderService {
 	async getAll(){
 			return this.prisma.order.findMany({
 				orderBy:{
-					createdAt:'desc'
+					id:'asc'
 				},
-				include: {
-					items:{
-						include:{
-							productInfo:{
-								select: returnProductInfoObject
-							}
-						}
-					}
-				}
+				select: returnOrderInfoFullSet
 			})
 	}
 
-	async getByUser(userId: number){
+	async getByUser(userId: number) {
 		return this.prisma.order.findMany({
-			where: {
-				id:userId
-			},
-			select: returnOrderInfoFullSet
+		  where: {
+			userId,
+		  },
+		  orderBy: {
+			id: 'asc',
+		  },
+		  select: returnOrderInfoFullSet,
+		});
+	  }
+	
 
-			
-		})
-	}
 
-
-	async placeOrder(dto: GetAllOrderDto) {
-		const { userId,status, shipAdress, shipCity, shipCountry, shipPostalCode, shipRegion, orderDate, items } = dto;
-	  
+	async placeOrder(dto: PlaceOrderDto) {
+		const {totalSum, userId, status, shipAdress, shipCity, shipCountry, shipPostalCode, shipRegion, orderDate, items } = dto;
+	
 		// Create the order
 		const createdOrder = await this.prisma.order.create({
-		  data: {
-			status,
-			shipAdress,
-			shipCity,
-			shipCountry,
-			shipPostalCode,
-			shipRegion,
-			orderDate,
-			userId
-		  },
-		  include: {
-			items: true, // Include the associated items in the response
-		  },
+			data: {
+				status,
+				shipAdress,
+				shipCity,
+				shipCountry,
+				shipPostalCode,
+				shipRegion,
+				orderDate,
+				userId,
+				totalSum
+			},
+			include: {
+				items: true, // Include the associated items in the response
+			},
 		});
-	  
+	
 		// Extract the order ID from the created order
 		const orderId = createdOrder.id;
-	  
+	
 		// Create the associated OrderItems with the orderId
 		const createdOrderItems = await this.prisma.orderItem.createMany({
-		  data: items.map(item => ({
-			price: item.price,
-			quantity: item.quantity,
-			productInfoId: item.productInfoId,
-			orderId,
-		  })),
+			data: items.map(item => ({
+				price: item.product.price,
+				quantity: item.quantity,
+				productInfoId: item.size.id,
+				orderId,
+			})),
 		});
-	  
+	
 		// Return the created order with associated items
 		return {
-		  order: createdOrder,
-		  items: createdOrderItems,
+			order: createdOrder,
+			items: createdOrderItems,
 		};
-	  }  
+	}
 	  
-	
 }
 	

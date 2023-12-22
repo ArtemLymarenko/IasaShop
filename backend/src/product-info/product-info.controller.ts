@@ -13,6 +13,7 @@ import {
 } from '@nestjs/common'
 import { ProductInfoService } from './product-info.service'
 import { ProductInfoDto } from './dto/product-info.dto'
+import { Auth } from 'src/auth/decorators/auth.decorator'
 
 @Controller('product-info')
 export class ProductInfoController {
@@ -20,7 +21,7 @@ export class ProductInfoController {
 
 	@UsePipes(new ValidationPipe())
 	@HttpCode(200)
-	//@Auth()
+	@Auth('admin')
 	@Post()
 	async createProductInfo(@Body() dto: ProductInfoDto) {
 		return this.productInfoService.create(dto)
@@ -29,7 +30,7 @@ export class ProductInfoController {
 	@UsePipes(new ValidationPipe())
 	@HttpCode(200)
 	@Put(':id')
-	//@Auth()
+	@Auth('admin')
 	async updateProductInfo(
 		@Param('id') id: string,
 		@Body() dto: ProductInfoDto
@@ -37,9 +38,16 @@ export class ProductInfoController {
 		return this.productInfoService.update(+id, dto)
 	}
 
+	@UsePipes(new ValidationPipe())
+	@HttpCode(200)
+	@Put('by-id-update/:id')
+	async updateProductQuantity(@Param('id') id: number,@Body() body: { quantity: number }){
+		return this.productInfoService.updateProductQuantity(+id,body.quantity);
+	}
+
 	@HttpCode(200)
 	@Delete(':id')
-	//@Auth()
+	@Auth('admin')
 	async deleteProductInfo(@Param('id') id: string) {
 		return this.productInfoService.delete(+id)
 	}

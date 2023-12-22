@@ -1,13 +1,13 @@
-import { ICartItem } from './cart.interface'
+import { OrderItem } from "@prisma/client"
+import { ICartItem } from "src/order-item/cart-item-interface"
 
 export enum EnumOrderStatus {
 	PENDING = 'PENDING',
 	PAYED = 'PAYED ',
-	AWAITING = 'AWAITING',
+	SHIPPED = 'SHIPPED',
 	DELIVERED = 'DELIVERED'
 }
-export interface IOrder {
-	id: number
+export interface PlaceOrderDto {
 	orderDate: string
 	status: EnumOrderStatus
 	shipCountry: string
@@ -15,7 +15,7 @@ export interface IOrder {
 	shipRegion: string
 	shipPostalCode: string
 	shipAdress: string
-	totalSum: number
 	items: ICartItem[]
 	userId: number
+	totalSum: number
 }

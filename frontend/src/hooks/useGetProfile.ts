@@ -1,5 +1,4 @@
 import userService from "@/components/services/user/user.service";
-import { IUser } from "@/types/user.interface";
 import { useQuery } from "@tanstack/react-query";
 
 export const useGetProfile = () => {

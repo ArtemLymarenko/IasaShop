@@ -1,40 +1,29 @@
 @import '@/assets/styles/variables.scss';
 
-.items {
-	width: 100%;
-	padding: 0 100px;
-	.item {
-		margin-top: 12px;
+.orderInfo {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	overflow-y: auto;
+	max-height: 600px;
+	> div {
 		display: flex;
-		align-items: center;
-		justify-content: space-between;
+		flex-direction: row;
+		align-items: flex-start;
+
+		gap: 150px;
+		background-color: #f0f0f0;
+		padding: 10px;
+		margin-bottom: 10px;
 		border-radius: 10px;
-		background: $grey-light;
-		padding: 0 30px;
-		transition-property: color, background-color, border-color,
-			text-decoration-color, fill, stroke;
-		transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-		transition-duration: 150ms;
 		&:hover {
-			background: $black;
-			color: $white;
-			font-weight: 600;
+			background-color: #e0e0e0;
 		}
 
-		> div {
-			padding: 16px 0;
-			width: 24%;
-
-			&:last-child {
-				justify-content: flex-end;
-				text-align: right;
-			}
+		> p {
+			font-size: 18px;
+			font-weight: 400;
+			color: $black;
 		}
 	}
-}
-
-.notFound {
-	padding: 16px 0;
-	text-align: center;
-	font-size: 36px;
 }

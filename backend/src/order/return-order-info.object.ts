@@ -10,6 +10,7 @@ export const returnOrderInfo: Prisma.OrderSelect = {
   shipCountry: true,
   shipPostalCode: true,
   shipRegion: true,
+  totalSum: true,
   userId: true
 }
 

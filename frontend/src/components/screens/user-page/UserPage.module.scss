@@ -11,15 +11,29 @@
 
 .rightSection {
 	display: flex;
-	min-height: 600px;
 	min-width: 600px;
+	max-height: 600px;
+	min-height: 600px;
 	flex-direction: column;
 	padding: 20px;
+
 	.form {
 		width: 100%;
 		max-width: 600px;
 		> Button {
 			margin-top: 30px;
+		}
+	}
+	
+	.orderHeader {
+		display: flex;
+		justify-content: space-between;
+
+		> p {
+			font-size: 18px;
+			font-weight: 600;
+			color: $black;
+			gap: 30px;
 		}
 	}
 }

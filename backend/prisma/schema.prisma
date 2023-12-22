@@ -56,7 +56,7 @@ model ProductInfo {
   id Int @id @default(autoincrement())
   product      Product @relation(fields: [productId], references: [id])
   productId    Int @map("product_id")
-  
+
   sizeName String  @db.VarChar(10) @map("size_name")
   amountStorage Int @map("amount_storage")
 
@@ -91,6 +91,7 @@ model Order{
   shipAdress String @map("ship_adress")
   orderDate DateTime @default(now()) @map("order_date")
 
+  totalSum Decimal @map("total_sum")
   items OrderItem[]
 
   user User? @relation(fields: [userId], references: [id])
