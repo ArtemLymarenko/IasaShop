@@ -1,0 +1,13 @@
+.formContainer {
+	width: 50%;
+	.form {
+		display: flex;
+		flex-direction: column;
+		gap: 50px;
+	}
+	.size {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+	}
+}

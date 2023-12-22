@@ -13,7 +13,6 @@ import Button from '@/components/ui/button/Button'
 import { useOrderByUserId } from '@/hooks/useOrders'
 import OrderInfo from './user-orders/UserOrders'
 
-
 const LeftSection: FC<{ onButtonClick: (button: string) => void }> = ({
 	onButtonClick
 }) => {

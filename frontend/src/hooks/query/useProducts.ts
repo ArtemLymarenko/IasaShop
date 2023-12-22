@@ -12,13 +12,13 @@ export const useProducts = () => {
 }
 
 export const useProductById = (id: string) => {
-	const { data } = useQuery({
+	const { data, error } = useQuery({
 		queryKey: ['products', id],
-		queryFn: () => productService.getById(+id),
+		queryFn: () => productService.getById(id),
 		select: ({ data }) => data
 	})
 
-	return { product: data }
+	return { product: data, error }
 }
 
 export const useProductBySlug = (slug: string) => {

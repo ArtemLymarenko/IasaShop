@@ -13,7 +13,7 @@ const AdminProducts: FC = () => {
 		'Product name',
 		'Created At',
 		'Price',
-		'Category id',
+		'Category name',
 		'Size/Quantity'
 	]
 

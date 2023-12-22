@@ -17,7 +17,7 @@ interface IImage {
 	image: string
 }
 
-interface IProductForm {
+export interface IProductForm {
 	productName: string
 	price: number
 	description: string
@@ -90,7 +90,7 @@ const AddProductForm: FC = () => {
 		} catch (error) {
 			setErrorMessage(`Something went wrong. Try again!`)
 		}
-		await queryClient.invalidateQueries('get admin products')
+		await queryClient.invalidateQueries({ queryKey: ['get admin products'] })
 		reset()
 	}
 

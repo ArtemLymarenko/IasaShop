@@ -10,7 +10,7 @@ class ProductService {
 		})
 	}
 
-	async getById(id: number) {
+	async getById(id: string) {
 		return instance<IProduct>({
 			url: `/products/${id}`,
 			method: 'GET'
@@ -34,7 +34,7 @@ class ProductService {
 		return response.data
 	}
 
-	async update(id: number, productDto: IProductDto) {
+	async update(id: string, productDto: IProductDto) {
 		return instance<IProduct>({
 			url: `/products/${id}`,
 			method: 'PUT',

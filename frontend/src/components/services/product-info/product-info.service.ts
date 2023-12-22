@@ -3,8 +3,8 @@ import { IProductInfo } from '@/types/productInfo.interface'
 import { IProductInfoDto } from './product-info.dto.interface'
 
 class ProductInfoService {
-	async getById(id: number) {
-		return instance<IProductInfo>({
+	async getById(id: string) {
+		return instance<IProductInfo[]>({
 			url: `/product-info/by-productId/${id}`,
 			method: 'GET'
 		})
@@ -21,6 +21,13 @@ class ProductInfoService {
 			url: `/product-info/by-id-update/${id}`,
 			method: 'PUT',
 			data: { quantity }
+		})
+	}
+	async update(id: number, productInfDto: IProductInfoDto) {
+		return instance<IProductInfo>({
+			url: `/product-info/${id}`,
+			method: 'PUT',
+			data: productInfDto
 		})
 	}
 }

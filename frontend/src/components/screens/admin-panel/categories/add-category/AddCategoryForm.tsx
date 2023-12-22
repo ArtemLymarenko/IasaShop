@@ -27,7 +27,7 @@ const AddCategoryForm: FC = () => {
 			setErrorMessage('Something went wrong. Try again!')
 			return
 		}
-		await queryClient.invalidateQueries('get admin categories')
+		await queryClient.invalidateQueries({ queryKey: ['get admin categories'] })
 		reset()
 	}
 
