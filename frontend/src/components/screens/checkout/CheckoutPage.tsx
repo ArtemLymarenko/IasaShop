@@ -53,7 +53,6 @@ const CheckoutPage: FC = () => {
 				const { id: sizeId } = size
 				await productInfoService.updateProductQuantity(sizeId, quantity)
 			}
-			//console.log('Order placed successfully:', response.data);
 			clearCart()
 			toast.success('Order placed successfully!')
 			setTimeout(() => {
@@ -61,7 +60,6 @@ const CheckoutPage: FC = () => {
 			}, 2000)
 		} catch (error) {
 			toast.error('Error placing order. Please try again.')
-			//console.error('Error placing order:', error);
 		}
 	}
 
@@ -72,7 +70,8 @@ const CheckoutPage: FC = () => {
 					display: 'flex',
 					alignItems: 'center',
 					flexDirection: 'column',
-					width: '100%'
+					width: '100%',
+					gap: '50px'
 				}}
 			>
 				<Heading>Checkout</Heading>
@@ -93,9 +92,12 @@ const CheckoutPage: FC = () => {
 						<div className={styles.price}>
 							Total: {formatToCurrency(totalSum)}
 						</div>
+						<Button onClick={handlePlaceOrder} className={styles.placeOrderBtn}>
+							Place Order
+						</Button>
 					</div>
 				</div>
-				<Button onClick={handlePlaceOrder}>Place Order</Button>
+
 				<ToastContainer
 					position='bottom-center'
 					autoClose={2000}

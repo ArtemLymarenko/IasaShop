@@ -33,7 +33,10 @@ const Router = () => {
 					element={<AuthProvider role={{}} children={<ProductDetailsPage />} />}
 					path='/products/:id'
 				/>
-				<Route element={<AuthPage />} path='/auth' />
+				<Route
+					element={<AuthProvider role={{}} children={<AuthPage />} />}
+					path='/auth'
+				/>
 
 				<Route
 					element={

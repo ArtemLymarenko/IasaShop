@@ -7,13 +7,10 @@ import { useProductBySlug } from '@/hooks/query/useProducts'
 
 const CategoryPage: FC = () => {
 	const { slug } = useParams()
-	console.log(slug)
 	if (!slug) {
 		return <NotFound />
 	}
 	const { products } = useProductBySlug(slug)
-
-	console.log(products)
 	if (!products) {
 		return <NotFound />
 	}
