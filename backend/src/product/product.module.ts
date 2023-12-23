@@ -1,10 +1,12 @@
-import { Module } from '@nestjs/common';
-import { ProductService } from './product.service';
-import { ProductController } from './product.controller';
-import { PrismaService } from 'src/prisma.service';
+import { Module } from '@nestjs/common'
+import { ProductService } from './product.service'
+import { ProductController } from './product.controller'
+import { PrismaService } from 'src/prisma.service'
+import { RedisModule } from 'src/redis/redis.module'
 
 @Module({
-  controllers: [ProductController],
-  providers: [ProductService,PrismaService],
+	imports: [RedisModule],
+	controllers: [ProductController],
+	providers: [ProductService, PrismaService]
 })
 export class ProductModule {}

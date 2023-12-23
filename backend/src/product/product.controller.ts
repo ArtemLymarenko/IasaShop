@@ -8,6 +8,7 @@ import {
 	Post,
 	Put,
 	Query,
+	UseInterceptors,
 	UsePipes,
 	ValidationPipe
 } from '@nestjs/common'
@@ -15,16 +16,28 @@ import { GetAllProductDto } from './dto/get-all.products.dto'
 import { ProductDto } from './dto/product.dto'
 import { ProductService } from './product.service'
 import { Auth } from 'src/auth/decorators/auth.decorator'
+import { RedisService } from 'src/redis/redis.service'
 
 @Controller('products')
 export class ProductController {
-	constructor(private readonly productService: ProductService) {}
+	constructor(
+		private readonly productService: ProductService,
+		private readonly redisService: RedisService
+	) {}
 
 	//Needed
 	@HttpCode(200)
 	@Get()
 	async getAll(@Query() queryDto: GetAllProductDto) {
-		return this.productService.getAll(queryDto)
+		const products = await this.redisService.get('products')
+		if (products) {
+			return products
+		}
+
+		const productsFromDb = this.productService.getAll(queryDto)
+		this.redisService.set('products', productsFromDb)
+
+		return productsFromDb
 	}
 
 	//?

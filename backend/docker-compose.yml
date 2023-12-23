@@ -10,6 +10,9 @@ services:
       POSTGRES_DB: shop_db
     ports:
       - '5432:5432'
+    networks:
+      - my-network
+
   pgadmin:
     container_name: pgadmin4_container
     image: dpage/pgadmin4
@@ -19,3 +22,24 @@ services:
       PGADMIN_DEFAULT_PASSWORD: root
     ports:
       - '5050:80'
+    networks:
+      - my-network
+
+  redis:
+    container_name: redis_container
+    image: redis:latest
+    restart: always
+    ports:
+      - '6379:6379'
+    volumes:
+      - /path/to/local/data:/root/redis
+      - /path/to/local/redis.conf:/usr/local/etc/redis/redis.conf
+    environment:
+      - REDIS_PASSWORD=password
+      - REDIS_PORT=6379
+      - REDIS_DATABASES=16
+    networks:
+      - my-network
+
+networks:
+  my-network:
