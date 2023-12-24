@@ -25,7 +25,6 @@ export class ProductController {
 		private readonly redisService: RedisService
 	) {}
 
-	//Needed
 	@HttpCode(200)
 	@Get()
 	async getAll(@Query() queryDto: GetAllProductDto) {
@@ -34,20 +33,18 @@ export class ProductController {
 			return products
 		}
 
-		const productsFromDb = this.productService.getAll(queryDto)
-		this.redisService.set('products', productsFromDb)
+		const productsFromDb = await this.productService.getAll(queryDto)
+		await this.redisService.set('products', JSON.stringify(productsFromDb))
 
 		return productsFromDb
 	}
 
-	//?
 	@HttpCode(200)
 	@Get('similar/:id')
 	async getSimilar(@Param('id') id: string) {
 		return this.productService.getSimilar(+id)
 	}
 
-	//Needed
 	@HttpCode(200)
 	@Get('by-category/:categorySlug')
 	getProductByCategory(@Param('categorySlug') categorySlug: string) {

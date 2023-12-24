@@ -14,7 +14,8 @@ import { APP_INTERCEPTOR } from '@nestjs/core'
 					host: 'localhost',
 					port: 6379,
 					password: 'password'
-				}
+				},
+				ttl: 10000
 			})
 		})
 	],

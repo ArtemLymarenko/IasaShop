@@ -3,7 +3,6 @@ import {
 	Get,
 	Post,
 	Body,
-	Patch,
 	Param,
 	Delete,
 	UsePipes,
@@ -14,10 +13,14 @@ import {
 import { OrderService } from './order.service'
 import { PlaceOrderDto } from './dto/place-order.dto'
 import { Auth } from 'src/auth/decorators/auth.decorator'
+import { RedisService } from 'src/redis/redis.service'
 
 @Controller('order')
 export class OrderController {
-	constructor(private readonly orderService: OrderService) {}
+	constructor(
+		private readonly orderService: OrderService,
+		private readonly redisService: RedisService
+	) {}
 
 	@Get('get-by-user/:id')
 	@Auth()
@@ -28,8 +31,17 @@ export class OrderController {
 	@Get('get-all')
 	@Auth('admin')
 	async getAll() {
-		return this.orderService.getAll()
+		const orders = await this.redisService.get('orders')
+		if (orders) {
+			return orders
+		}
+
+		const ordersFromDb = await this.orderService.getAll()
+		await this.redisService.set('orders', JSON.stringify(ordersFromDb))
+
+		return ordersFromDb
 	}
+
 	@UsePipes(new ValidationPipe())
 	@HttpCode(200)
 	@Auth()
