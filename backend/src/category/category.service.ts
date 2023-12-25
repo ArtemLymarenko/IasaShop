@@ -3,10 +3,14 @@ import { Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaService } from 'src/prisma.service'
 import { CategoryDto } from './category.dto'
 import { returnCategoryObject } from './return-category.object'
+import { ProductService } from 'src/product/product.service'
 
 @Injectable()
 export class CategoryService {
-	constructor(private prisma: PrismaService) {}
+	constructor(
+		private prisma: PrismaService,
+		private readonly productService: ProductService
+	) {}
 
 	async byId(id: number) {
 		const category = await this.prisma.category.findUnique({
@@ -59,11 +63,7 @@ export class CategoryService {
 		})
 
 		for (const product of products) {
-			await this.prisma.product.delete({
-				where: {
-					id: product.id
-				}
-			})
+			await this.productService.delete(product.id)
 		}
 
 		return this.prisma.category.delete({

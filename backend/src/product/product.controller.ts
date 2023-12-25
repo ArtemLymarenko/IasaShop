@@ -75,7 +75,6 @@ export class ProductController {
 	}
 
 	@Get(':id')
-	@Auth()
 	async getProduct(@Param('id') id: string) {
 		return this.productService.byId(+id)
 	}
